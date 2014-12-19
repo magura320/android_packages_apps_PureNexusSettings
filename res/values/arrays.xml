@@ -27,7 +27,7 @@
     <integer-array name="nav_drawer_cat_nums" translatable="false">
         <item>4</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
         <item>0</item>
-        <item>0</item>
+        <item>1</item>
         <item>0</item>
         <item>2</item>
     </integer-array>
@@ -38,6 +38,7 @@
         <item>@string/buildprop_frag_title</item>
         <item>@string/buildprop_frag_title2</item>
         <item>@string/fiswitch_frag_title</item>
+        <item>@string/powermenu_frag_title</item>
         <item>@string/clock_frag_title</item>
         <item>@string/toolinfo_frag_title</item>
     </string-array>
@@ -49,6 +50,7 @@
         <item>BuildPropFragment</item>
         <item>EditPropFragment</item>
         <item>FiSwitchFragment</item>
+        <item>PowerMenuFragment</item>
         <item>nullcLock</item>
         <item>DeviceFragment</item>
     </string-array>
@@ -63,5 +65,20 @@
         <item>null</item>
         <item>null</item>
         <item>null</item>
+        <item>null</item>
     </array>
+
+    <!-- PowerMenu entries -->
+    <string-array name="power_menu_actions_array" translatable="false">
+        <item>power</item>
+        <item>reboot</item>
+        <item>screenshot</item>
+        <item>airplane</item>
+        <item>users</item>
+        <item>settings</item>
+        <item>lockdown</item>
+        <item>assist</item>
+        <item>voiceassist</item>
+        <item>silent</item>
+    </string-array>
 </resources>
