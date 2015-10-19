@@ -22,15 +22,15 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.annotation.NonNull;
 
-public class DummyFragment extends PreferenceFragment {
-    public DummyFragment(){}
+public class DisplayFragment extends PreferenceFragment {
+    public DisplayFragment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.dummypref);
+        addPreferencesFromResource(R.xml.display_fragment);
     }
 
     @Override
