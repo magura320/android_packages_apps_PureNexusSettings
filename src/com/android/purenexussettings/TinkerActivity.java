@@ -238,14 +238,18 @@ public class TinkerActivity extends AppCompatActivity {
                 stritem.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.alphawhite)), 0, stritem.length(),0);
                 // group id is j, i is item id and order..., then title - includes logic for conditional entries
                 if ( cLockInstalled || !(navMenuTitles[i].equals("cLock")) ) {
-                    submenu.add(j, i, i, stritem);
                     // an attempt to add icon if included...
                     if (navMenuIcons.getResourceId(i, -1) != -1) {
-                        submenu.getItem(i).setIcon(navMenuIcons.getResourceId(i, -1));
+                        submenu.add(j, i, i, stritem).setIcon(navMenuIcons.getResourceId(i, -1));
+                    } else {
+                        submenu.add(j, i, i, stritem);
                     }
                 }
             }
         }
+
+        // remove icon tint from NavView
+        mNavView.setItemIconTintList(null);
 
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
