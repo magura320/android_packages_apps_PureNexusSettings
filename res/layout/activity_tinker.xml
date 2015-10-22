@@ -37,12 +37,12 @@
       android:layout_height="match_parent"/>
 
   </LinearLayout>
-    <android.support.design.widget.NavigationView
+
+  <android.support.design.widget.NavigationView
       android:id="@+id/slidermenu"
       android:layout_height="match_parent"
-      android:layout_width="240dp"
+      android:layout_width="wrap_content"
       android:layout_gravity="start"
-      android:fitsSystemWindows="true"
       pure:theme="@style/NavView"
       pure:headerLayout="@layout/drawer_header"
       pure:menu="@menu/menu_tinker" />

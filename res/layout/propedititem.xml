@@ -15,7 +15,7 @@
 -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:pure="http://schemas.android.com/apk/res-auto"
     android:id="@+id/editlayoutcoord"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -30,10 +30,10 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="@dimen/cardview_elevate"
-            app:cardBackgroundColor="@color/cardlayout_bg"
-            app:cardCornerRadius="@dimen/cardview_rounding">
+            pure:cardUseCompatPadding="true"
+            pure:cardElevation="@dimen/cardview_elevate"
+            pure:cardBackgroundColor="@color/cardlayout_bg"
+            pure:cardCornerRadius="@dimen/cardview_rounding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,10 +63,10 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="@dimen/cardview_elevate"
-            app:cardBackgroundColor="@color/cardlayout_bg"
-            app:cardCornerRadius="@dimen/cardview_rounding">
+            pure:cardUseCompatPadding="true"
+            pure:cardElevation="@dimen/cardview_elevate"
+            pure:cardBackgroundColor="@color/cardlayout_bg"
+            pure:cardCornerRadius="@dimen/cardview_rounding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,12 +103,12 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_save"
-        app:backgroundTint="@color/fab_color"
-        app:rippleColor="@color/fab_ripple"
-        app:borderWidth="0dp"
-        app:elevation="5dp"
-        app:pressedTranslationZ="10dp"
-        app:layout_anchor="@id/editlayout"
-        app:layout_anchorGravity="bottom|right|end"/>
+        pure:backgroundTint="@color/fab_color"
+        pure:rippleColor="@color/fab_ripple"
+        pure:borderWidth="0dp"
+        pure:elevation="5dp"
+        pure:pressedTranslationZ="10dp"
+        pure:layout_anchor="@id/editlayout"
+        pure:layout_anchorGravity="bottom|right|end"/>
 
 </android.support.design.widget.CoordinatorLayout>

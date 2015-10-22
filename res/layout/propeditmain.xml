@@ -15,7 +15,7 @@
 -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:pure="http://schemas.android.com/apk/res-auto"
     android:id="@+id/buildpropcoord"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -32,13 +32,13 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/fab_color"
-        app:rippleColor="@color/fab_ripple"
-        app:borderWidth="0dp"
-        app:elevation="5dp"
-        app:pressedTranslationZ="10dp"
-        app:layout_anchor="@id/recyclerList"
-        app:layout_anchorGravity="bottom|right|end"
-        app:layout_behavior="com.android.purenexussettings.utils.FabScrollAnimator"/>
+        pure:backgroundTint="@color/fab_color"
+        pure:rippleColor="@color/fab_ripple"
+        pure:borderWidth="0dp"
+        pure:elevation="5dp"
+        pure:pressedTranslationZ="10dp"
+        pure:layout_anchor="@id/recyclerList"
+        pure:layout_anchorGravity="bottom|right|end"
+        pure:layout_behavior="com.android.purenexussettings.utils.FabScrollAnimator"/>
 
 </android.support.design.widget.CoordinatorLayout>

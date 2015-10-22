@@ -16,10 +16,10 @@
 
 <android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:pure="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
-    custom:theme="@style/ToolbarCustomIconColor"
-    custom:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    pure:theme="@style/ToolbarCustomIconColor"
+    pure:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
