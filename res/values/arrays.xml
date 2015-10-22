@@ -42,8 +42,8 @@
         <item>Lock screen</item>
         <item>Navigation bar</item>
         <item>Display</item>
-        <item>Tools and info</item>
         <item>cLock</item>
+        <item>Tools and info</item>
     </string-array>
 
     <!-- Nav Drawer Fragment names-->
