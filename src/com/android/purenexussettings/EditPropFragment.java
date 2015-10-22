@@ -28,7 +28,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -62,9 +61,9 @@ public class EditPropFragment extends Fragment {
 
         public ProcessEdits setInits(Context context, String origname, String newname, String newkey) {
             this.context = context;
-            mOrigName = origname;
-            mNewName = newname;
-            mNewKey = newkey;
+            mOrigName = origname == null ? origname : origname.replaceAll(" ", "_");
+            mNewName = newname == null ? newname : newname.replaceAll(" ", "_");
+            mNewKey = newkey == null ? newkey : newkey.replaceAll(" ", "_");
             return this;
         }
 
@@ -261,10 +260,11 @@ public class EditPropFragment extends Fragment {
     }
 
     public void transferFileToSystem() {
+        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
         try {
             Shell.SU.run("mount -o remount,rw  /system");
-            Shell.SU.run("mv -f /system/build.prop /system/build.prop.bak");
-            Shell.SU.run("cp -f " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp /system/build.prop");
+            Shell.SU.run("mv -f /system/build.prop " + filepath + "/build.prop.bak");
+            Shell.SU.run("mv -f " + filepath + "/buildprop.tmp /system/build.prop");
             Shell.SU.run("chmod 644 /system/build.prop");
             Shell.SU.run("mount -o remount,ro  /system");
         } catch (Exception e) {
@@ -273,11 +273,11 @@ public class EditPropFragment extends Fragment {
 
     public void editfile(String origkey, String key, String value) {
         if (key == null && value == null && origkey != null) {
-            Shell.SU.run("sed -i '/" + origkey + "=/d' " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
+            Shell.SU.run("sed -i /" + origkey + "=/d " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
         } else if (origkey == null) {
-            Shell.SU.run("sed -i '$ a\\" + key + "=" + value +"' " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
+            Shell.SU.run("sed -i '$a" + key + "=" + value +"' " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
         } else {
-            Shell.SU.run("sed -i '/" + origkey + "=/c\\" + key + "=" + value +"' " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
+            Shell.SU.run("sed -i /" + origkey + "=/c\\" + key + "=" + value + " " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
         }
     }
 }

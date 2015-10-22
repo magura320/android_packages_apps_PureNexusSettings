@@ -60,6 +60,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     private CoordinatorLayout mCoordLayout;
     private BuildPropRecyclerAdapter mAdapter;
     private ArrayList<Map<String, String>> mProplist;
+    private boolean mHasRoom;
 
     private class LoadProp extends AsyncTask<Void, Void, Void> {
         private ProgressDialog dialog = null;
@@ -166,14 +167,14 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
             if (mTryCatchFail) {
                 Snackbar.make(mLayout, "Error occurred", Snackbar.LENGTH_SHORT).show();
             } else if (mIsRestore){
-                Snackbar.make(mLayout, "build.prop restored from " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mLayout, "build.prop restored from " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak", Snackbar.LENGTH_LONG).show();
             }
 
             if (EditPropFragment.isProcessing) {
                 if (EditPropFragment.isProcessingError) {
                     Snackbar.make(mLayout, "Error occurred", Snackbar.LENGTH_SHORT).show();
                 } else {
-                    Snackbar.make(mLayout, "Edit saved and a backup was made at " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mLayout, "Edit saved and a backup was made at " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak", Snackbar.LENGTH_LONG).show();
                 }
             }
 
@@ -288,6 +289,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+
         return (View) inflater.inflate(R.layout.propeditmain, container, false);
     }
 
@@ -297,13 +299,32 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         mCoordLayout = (CoordinatorLayout) view.findViewById(R.id.buildpropcoord);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerList);
 
+        // Attempt to flag instances where writing to build.prop
+        // is not possible due to no space
+        String filepath = "/system";
+        File file = new File(filepath);
+
+        long freeSpace = file.getFreeSpace();
+        //long useSpace = file.getUsableSpace();
+
+        if (file.getFreeSpace() == 0) {
+            mHasRoom = false;
+            Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+        } else {
+            mHasRoom = true;
+        }
+
         (new LoadProp()).setInits(getActivity(), mCoordLayout, recyclerView, false).execute();
 
         FloatingActionButton fabAdd = (FloatingActionButton) view.findViewById(R.id.fab);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((TinkerActivity) getActivity()).displayEditProp(null, null);
+                if (mHasRoom) {
+                    ((TinkerActivity) getActivity()).displayEditProp(null, null);
+                } else {
+                    Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -351,10 +372,18 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_restore:
-                (new LoadProp()).setInits(getActivity(), mCoordLayout, recyclerView, true).execute();
+                if (mHasRoom) {
+                    (new LoadProp()).setInits(getActivity(), mCoordLayout, recyclerView, true).execute();
+                } else {
+                    Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id.action_backup:
-                backup();
+                if (mHasRoom) {
+                    backup();
+                } else {
+                    Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -391,27 +420,39 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     }
 
     public void restorefile() {
-        try {
-            Shell.SU.run("mount -o remount,rw  /system");
-            Shell.SU.run("mv -f /system/build.prop /system/build.prop.bak");
-            Shell.SU.run("cp -f " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak /system/build.prop");
-            Shell.SU.run("chmod 644 /system/build.prop");
-            Shell.SU.run("mount -o remount,ro  /system");
-        } catch (Exception e) {
+        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak";
+        File file = new File(filepath);
+        if (file.exists()) {
+            try {
+                Shell.SU.run("mount -o remount,rw  /system");
+                Shell.SU.run("mv -f /system/build.prop " + filepath + ".tmp");
+                Shell.SU.run("mv -f " + filepath +" /system/build.prop");
+                Shell.SU.run("chmod 644 /system/build.prop");
+                Shell.SU.run("mount -o remount,ro  /system");
+            } catch (Exception e) {
+                Snackbar.make(mCoordLayout, "Error: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        } else {
+            Snackbar.make(mCoordLayout, "Error: Backup file does not exist!", Snackbar.LENGTH_SHORT).show();
         }
     }
 
     public void backup() {
+        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak";
         try {
-            Shell.SU.run("cp -f /system/build.prop " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak");
-            Snackbar.make(mCoordLayout, "build.prop Backup at " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak", Snackbar.LENGTH_SHORT).show();
+            Shell.SU.run("cp -f /system/build.prop " + filepath);
+            Snackbar.make(mCoordLayout, "build.prop backup at " + filepath, Snackbar.LENGTH_LONG).show();
         } catch (Exception e) {
             Snackbar.make(mCoordLayout, "Error: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
         }
     }
 
     public void showEdit(String name, String key) {
-        ((TinkerActivity)getActivity()).displayEditProp(name, key);
+        if (mHasRoom) {
+            ((TinkerActivity)getActivity()).displayEditProp(name, key);
+        } else {
+            Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     public String createTempFile() {
