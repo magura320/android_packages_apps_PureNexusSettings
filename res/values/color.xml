@@ -16,7 +16,7 @@
 
 <resources>
     <color name="list_item_title">#ffeeeeee</color>
-    <color name="action_bar_color">@color/material_blue_grey_900</color>
+    <color name="action_bar_color">#ff263238</color>
     <color name="list_background">@color/material_blue_grey_900</color>
     <color name="list_background_pressed">#ff555555</color>
     <color name="list_background_activated">#ff777777</color>
@@ -28,8 +28,8 @@
     <color name="widget_divider">#a0000000</color>
     <color name="bg_mat_dark">#ff303030</color>
     <color name="cardlayout_bg">#ff424242</color>
-    <color name="col_accnt">#ff03a9f4</color>
-    <color name="statbar">#ff0288d1</color>
+    <color name="col_accnt">#ff0288d1</color>
+    <color name="statbar">#ff212121</color>
     <color name="fab_ripple">#ffb3e5fc</color>
     <color name="transcol">#00000000</color>
     <color name="cardview_pref_title">#ffffffff</color>
@@ -37,7 +37,7 @@
     <color name="navdrawer_cat_border">#ffeeeeee</color>
     <color name="navdrawer_cat_bg">@color/material_blue_grey_950</color>
     <color name="buildprop_desc_color">#ff0288d1</color>
-    <color name="fab_color">#ff03a9f4</color>
+    <color name="fab_color">@color/col_accnt</color>
     <!-- If one wanted... they could alter the checkered alpha colors with the below -->
     <color name="alphawhite">#ffffffff</color>
     <color name="alphagray">#ffcbcbcb</color>

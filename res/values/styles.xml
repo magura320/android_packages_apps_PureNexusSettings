@@ -18,7 +18,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/col_accnt</item>
+        <item name="colorPrimary">@color/action_bar_color</item>
         <item name="colorPrimaryDark">@color/statbar</item>
         <item name="colorAccent">@color/col_accnt</item>
         <item name="windowActionBar">false</item>
