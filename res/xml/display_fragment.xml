@@ -17,4 +17,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pure="http://schemas.android.com/apk/res-auto" >
 
+    <com.android.purenexussettings.preferences.GlobalSettingSwitchPreference
+        android:key="wake_when_plugged_or_unplugged"
+        android:title="@string/wake_when_plugged_or_unplugged_title"
+        android:summary="@string/wake_when_plugged_or_unplugged_summary"
+        android:defaultValue="false" />
+
 </PreferenceScreen>
