@@ -148,6 +148,9 @@
     
   <!-- Lockscreen Fragment -->
     <string name="lockscreen_frag_title">Lockscreen</string>
+    <!-- Lockscreen album art -->
+    <string name="media_art_title">Media cover art</string>
+    <string name="media_art_summary">Enable media cover art on the lockscreen</string>
 
   <!-- Navdrawer categories -->
     <string name="interface_cat_title">Interface</string>
