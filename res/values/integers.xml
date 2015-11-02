@@ -21,4 +21,9 @@
     <integer name="slidetab_view_text_size_sp">12</integer>
     <integer name="slidetab_bottom_border_thickness_dips">0</integer>
     <integer name="slidetab_selected_indicator_thickness_dips">3</integer>
+    <!-- Overlays for NetworkTraffic to use -->
+    <integer name="maskUp">0x00000001</integer>
+    <integer name="maskDown">0x00000002</integer>
+    <integer name="maskUnit">0x00000004</integer>
+    <integer name="maskPeriod">0xFFFF0000</integer>
 </resources>

@@ -25,7 +25,7 @@
     </string-array>
 
     <integer-array name="nav_drawer_cat_nums" translatable="false">
-        <item>4</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
+        <item>5</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
         <item>2</item>
         <item>2</item>
         <item>0</item>
@@ -38,6 +38,7 @@
         <item>@string/buildprop_frag_title</item>
         <item>@string/buildprop_frag_title2</item>
         <item>@string/fiswitch_frag_title</item>
+        <item>@string/nettraffic_frag_title</item>
         <item>@string/lockscreen_frag_title</item>
         <item>@string/statusbar_frag_title</item>
         <item>@string/powermenu_frag_title</item>
@@ -53,6 +54,7 @@
         <item>BuildPropFragment</item>
         <item>EditPropFragment</item>
         <item>FiSwitchFragment</item>
+        <item>NetworkTrafficFragment</item>
         <item>LockscreenFragment</item>
         <item>StatusBarFragment</item>
         <item>PowerMenuFragment</item>
@@ -65,6 +67,7 @@
     <!-- Keep them in order as the titles are in -->
     <!-- Also note that icons for items not in navdrawer won't be shown -->
     <array name="nav_drawer_icons" translatable="false">
+        <item>null</item>
         <item>null</item>
         <item>null</item>
         <item>null</item>
@@ -104,5 +107,44 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+    </string-array>
+
+    <!-- Network Traffic -->
+    <string-array name="show_network_traffic_state_entries" translatable="false">
+        <item>@string/show_network_traffic_disable</item>
+        <item>@string/show_network_traffic_up</item>
+        <item>@string/show_network_traffic_down</item>
+        <item>@string/show_network_traffic_all</item>
+    </string-array>
+
+    <string-array name="show_network_traffic_state_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="show_network_traffic_unit_entries" translatable="false">
+        <item>@string/show_network_traffic_bit</item>
+        <item>@string/show_network_traffic_byte</item>
+    </string-array>
+
+    <string-array name="show_network_traffic_unit_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="show_network_traffic_frequency_entries" translatable="false">
+        <item>@string/show_network_traffic_500</item>
+        <item>@string/show_network_traffic_1000</item>
+        <item>@string/show_network_traffic_1500</item>
+        <item>@string/show_network_traffic_2000</item>
+    </string-array>
+
+    <string-array name="show_network_traffic_frequency_values" translatable="false">
+        <item>500</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>2000</item>
     </string-array>
 </resources>

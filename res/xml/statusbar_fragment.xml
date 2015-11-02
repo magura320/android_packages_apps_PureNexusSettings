@@ -17,6 +17,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pure="http://schemas.android.com/apk/res-auto" >
 
+    <Preference
+        android:key="nettraffrag" 
+        android:title="@string/nettraffic_frag_title"
+        android:summary="@string/status_bar_traffic_summary" />
+
     <com.android.purenexussettings.preferences.SystemSettingSwitchPreference
         android:key="double_tap_sleep_gesture"
         android:title="@string/double_tap_to_sleep_title"

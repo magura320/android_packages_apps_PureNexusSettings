@@ -17,15 +17,33 @@
 package com.android.purenexussettings;
 
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 
 public class StatusBarFragment extends PreferenceFragment {
 
     public StatusBarFragment(){}
 
+    private static final String NETWORKTRAFFRAG = "nettraffrag";
+
+    private Preference mNetTraf;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.statusbar_fragment);
+
+        mNetTraf = (Preference)findPreference(NETWORKTRAFFRAG);
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mNetTraf) {
+            ((TinkerActivity)getActivity()).displaySubFrag(getString(R.string.nettraffic_frag_title));
+
+            return true;
+        }
+        return false;
     }
 }
