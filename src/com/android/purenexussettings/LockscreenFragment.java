@@ -19,13 +19,25 @@ package com.android.purenexussettings;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
+import com.android.purenexussettings.utils.Utils;
+import com.android.purenexussettings.preferences.SystemSettingSwitchPreference;
+
 public class LockscreenFragment extends PreferenceFragment {
 
     public LockscreenFragment(){}
+
+    private static final String KEYGUARD_TORCH = "keyguard_toggle_torch";
+
+    private SystemSettingSwitchPreference mLsTorch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.lockscreen_fragment);
+
+        mLsTorch = (SystemSettingSwitchPreference) findPreference(KEYGUARD_TORCH);
+        if (!Utils.deviceSupportsFlashLight(getActivity())) {
+            getPreferenceScreen().removePreference(mLsTorch);
+        }
     }
 }

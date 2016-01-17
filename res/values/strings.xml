@@ -151,6 +151,9 @@
     <!-- Lockscreen album art -->
     <string name="media_art_title">Media cover art</string>
     <string name="media_art_summary">Enable media cover art on the lockscreen</string>
+    <!-- Lockscreen torch -->
+    <string name="keyguard_torch_title">Lockscreen torch</string>
+    <string name="keyguard_torch_summary">Longpress power button with screen off turns on torch</string>
 
   <!-- Navdrawer categories -->
     <string name="interface_cat_title">Interface</string>
