@@ -25,7 +25,7 @@
     </string-array>
 
     <integer-array name="nav_drawer_cat_nums" translatable="false">
-        <item>6</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
+        <item>8</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
         <item>3</item>
         <item>3</item>
         <item>2</item>
@@ -40,6 +40,8 @@
         <item>@string/fiswitch_frag_title</item>
         <item>@string/clockdate_frag_title</item>
         <item>@string/nettraffic_frag_title</item>
+        <item>@string/notification_light_frag_title</item>
+        <item>@string/battery_light_frag_title</item>
         <item>@string/lockscreen_frag_title</item>
         <item>@string/notifdraw_frag_title</item>
         <item>@string/statusbar_frag_title</item>
@@ -61,6 +63,8 @@
         <item>FiSwitchFragment</item>
         <item>ClockDateFragment</item>
         <item>NetworkTrafficFragment</item>
+        <item>NotificationLightSettings</item>
+        <item>BatteryLightSettings</item>
         <item>LockscreenFragment</item>
         <item>NotificationDrawerFragment</item>
         <item>StatusBarFragment</item>
@@ -77,6 +81,8 @@
     <!-- Keep them in order as the titles are in -->
     <!-- Also note that icons for items not in navdrawer won't be shown -->
     <array name="nav_drawer_icons" translatable="false">
+        <item>null</item>
+        <item>null</item>
         <item>null</item>
         <item>null</item>
         <item>null</item>
@@ -249,6 +255,41 @@
         <item>1000</item>
         <item>1500</item>
         <item>2000</item>
+    </string-array>
+
+    <!-- notification light pulse -->
+    <string-array name="notification_pulse_length_entries" translatable="false">
+        <item>@string/pulse_length_always_on</item>
+        <item>@string/pulse_length_very_short</item>
+        <item>@string/pulse_length_short</item>
+        <item>@string/pulse_length_normal</item>
+        <item>@string/pulse_length_long</item>
+        <item>@string/pulse_length_very_long</item>
+    </string-array>
+
+    <string-array name="notification_pulse_length_values" translatable="false">
+        <item>1</item>
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2500</item>
+        <item>5000</item>
+    </string-array>
+
+    <string-array name="notification_pulse_speed_entries" translatable="false">
+        <item>@string/pulse_speed_very_fast</item>
+        <item>@string/pulse_speed_fast</item>
+        <item>@string/pulse_speed_normal</item>
+        <item>@string/pulse_speed_slow</item>
+        <item>@string/pulse_speed_very_slow</item>
+    </string-array>
+
+    <string-array name="notification_pulse_speed_values" translatable="false">
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2500</item>
+        <item>5000</item>
     </string-array>
 
     <!-- Quick Pulldown -->

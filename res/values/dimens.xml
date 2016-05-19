@@ -28,4 +28,6 @@
     <dimen name="card_fade_edge">75dp</dimen>
     <dimen name="vert_fade_edge">50dp</dimen>
     <dimen name="horiz_fade_edge">50dp</dimen>
+    <dimen name="light_preference_width">16dip</dimen>
+    <dimen name="light_preference_height">32dip</dimen>
 </resources>

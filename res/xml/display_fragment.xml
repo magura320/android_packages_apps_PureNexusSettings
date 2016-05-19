@@ -31,4 +31,18 @@
         android:summary="@string/wake_when_plugged_or_unplugged_summary"
         android:defaultValue="false" />
 
+
+    <PreferenceCategory
+        android:key="leds"
+        android:title="@string/led_category" >
+
+        <Preference
+            android:key="battery_light"
+            android:title="@string/battery_light_frag_title" />
+        <Preference
+            android:key="notification_light"
+            android:title="@string/notification_light_frag_title" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
