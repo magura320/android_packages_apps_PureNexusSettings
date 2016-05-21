@@ -162,6 +162,13 @@ public class EditPropFragment extends Fragment {
             }
         });
 
+        // Focus on key when editing, name when adding
+        if (origName != null) {
+            editKey.requestFocus();
+        } else {
+            editName.requestFocus();
+        }
+
         FloatingActionButton fabSave = (FloatingActionButton) v.findViewById(R.id.fab);
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         fabSave.setOnClickListener(new View.OnClickListener() {
@@ -273,11 +280,11 @@ public class EditPropFragment extends Fragment {
 
     public void editfile(String origkey, String key, String value) {
         if (key == null && value == null && origkey != null) {
-            Shell.SU.run("sed -i /" + origkey + "=/d " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
+            Shell.SH.run("sed -i /" + origkey + "=/d " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
         } else if (origkey == null) {
-            Shell.SU.run("sed -i '$a" + key + "=" + value +"' " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
+            Shell.SH.run("sed -i '$a" + key + "=" + value +"' " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
         } else {
-            Shell.SU.run("sed -i /" + origkey + "=/c\\" + key + "=" + value + " " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
+            Shell.SH.run("sed -i /" + origkey + "=/c\\" + key + "=" + value + " " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
         }
     }
 }

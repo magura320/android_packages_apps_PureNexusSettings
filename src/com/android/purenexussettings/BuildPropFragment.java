@@ -321,10 +321,10 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mHasRoom) {
+                if (mHasRoom && TinkerActivity.isRoot) {
                     ((TinkerActivity) getActivity()).displayEditProp(null, null);
                 } else {
-                    Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mCoordLayout, (mHasRoom ? "" : getString(R.string.no_room_error)) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "") + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)), Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -373,18 +373,15 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_restore:
-                if (mHasRoom) {
+                if (mHasRoom && TinkerActivity.isRoot) {
                     (new LoadProp()).setInits(getActivity(), mCoordLayout, recyclerView, true).execute();
                 } else {
-                    Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mCoordLayout, (mHasRoom ? "" : getString(R.string.no_room_error)) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "") + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)), Snackbar.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.action_backup:
-                if (mHasRoom) {
-                    backup();
-                } else {
-                    Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
-                }
+                // Might as well allow backups even if no room or no root
+                backup();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -441,7 +438,8 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     public void backup() {
         String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak";
         try {
-            Shell.SU.run("cp -f /system/build.prop " + filepath);
+            // Should let backup be created even if root denied
+            Shell.SH.run("cp -f /system/build.prop " + filepath);
             Snackbar.make(mCoordLayout, String.format(getString(R.string.backup_loc), filepath), Snackbar.LENGTH_LONG).show();
         } catch (Exception e) {
             Snackbar.make(mCoordLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
@@ -449,17 +447,19 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     }
 
     public void showEdit(String name, String key) {
-        if (mHasRoom) {
+        if (mHasRoom && TinkerActivity.isRoot) {
             ((TinkerActivity)getActivity()).displayEditProp(name, key);
         } else {
-            Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mCoordLayout, (mHasRoom ? "" : getString(R.string.no_room_error)) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "") + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)), Snackbar.LENGTH_SHORT).show();
         }
     }
 
     public String createTempFile() {
         try {
-            Shell.SU.run("cp -f /system/build.prop " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
-//            Shell.SU.run("chmod 777 " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
+            // Seemed better to opt for SH here in case root denied for whatever reason
+            Shell.SH.run("cp -f /system/build.prop " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
+            // The below doesn't really seem necessary...
+            //Shell.SU.run("chmod 777 " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
             return (String) Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp";
         } catch (Exception e) {
             return (String) "error";

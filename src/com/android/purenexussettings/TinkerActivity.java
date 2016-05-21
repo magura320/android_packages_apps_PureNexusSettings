@@ -78,6 +78,7 @@ public class TinkerActivity extends AppCompatActivity {
     public static final int REQUEST_CREATE_SHORTCUT = 3;
     public static final String PROJFI_PACKAGE_NAME = "com.google.android.apps.tycho";
     public static final String KEY_LOCK_CLOCK_PACKAGE_NAME = "com.cyanogenmod.lockclock";
+    public static final String KEY_LOCK_CLOCK_CLASS_NAME = "com.cyanogenmod.lockclock.preference.Preferences";
 
     // example - used to retain slidetab position
     public static int LAST_SLIDE_BAR_TAB;
@@ -347,9 +348,9 @@ public class TinkerActivity extends AppCompatActivity {
     }
 
     private boolean checkPosition(int position) {
-        // list out positions that should skip stack clearing
-        // buildprop editprop apppicker fiswitch
-        return position == 1 || position == 2 || position == 3 || position == 4;
+        // identify if position should skip stack clearing
+        // these are the non-About frags not shown in navdrawer
+        return (position < FRAG_ARRAY_START) && (position != 0);
     }
 
     private int checkSubFrag(int origposition, int newposition) {
@@ -449,19 +450,6 @@ public class TinkerActivity extends AppCompatActivity {
         }, 400);
     }
 
-    public void displayBuildPropEditor() {
-        myHandler.removeCallbacksAndMessages(null);
-        mMenu = true;
-        removeCurrent();
-        // below replicates the visual delay seen when launching frags from navdrawer
-        myHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                displayView(1);
-            }
-        }, 400);
-    }
-
     public void displayEditProp(String name, String key) {
         // put the name and key strings in here for editprop access
         mEditName = name;
@@ -479,22 +467,40 @@ public class TinkerActivity extends AppCompatActivity {
         }, 400);
     }
 
-    public void displayFiSwitch() {
-        myHandler.removeCallbacksAndMessages(null);
-        mMenu = true;
-        removeCurrent();
-        // below replicates the visual delay seen when launching frags from navdrawer
-        myHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                displayView(4);
+    public void displaySubFrag(String title) {
+        int poscheck = -1;
+
+        // Look for title in array of titles to get position
+        for (int i=0; i < navMenuTitles.length; i++) {
+            if (navMenuTitles[i].equals(title)) {
+                poscheck = i;
+                break;
             }
-        }, 400);
+        }
+
+        // needs to be final for myHandler
+        final int position = poscheck;
+
+        // only do this if something was found - i.e. position != -1 - otherwise do nothing
+        if (position >= 0) {
+            myHandler.removeCallbacksAndMessages(null);
+            mMenu = true;
+            removeCurrent();
+            // below replicates the visual delay seen when launching frags from navdrawer
+            myHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    displayView(position);
+                }
+            }, 400);
+        } else {
+            Snackbar.make(findViewById(R.id.frame_container), getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     public void launchcLock() {
         Intent link = new Intent(Intent.ACTION_MAIN);
-        ComponentName cn = new ComponentName("com.cyanogenmod.lockclock", "com.cyanogenmod.lockclock.preference.Preferences");
+        ComponentName cn = new ComponentName(KEY_LOCK_CLOCK_PACKAGE_NAME, KEY_LOCK_CLOCK_CLASS_NAME);
         link.setComponent(cn);
         startActivity(link);
     }

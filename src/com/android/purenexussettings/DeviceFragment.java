@@ -70,13 +70,13 @@ public class DeviceFragment extends PreferenceFragment {
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen, @NonNull Preference pref) {
         if (pref == mBuildProp) {
-            ((TinkerActivity)getActivity()).displayBuildPropEditor();
+            ((TinkerActivity)getActivity()).displaySubFrag(getString(R.string.buildprop_frag_title));
 
             return true;
         }
 
         if (pref == mFiSwitch) {
-            ((TinkerActivity)getActivity()).displayFiSwitch();
+            ((TinkerActivity)getActivity()).displaySubFrag(getString(R.string.fiswitch_frag_title));
 
             return true;
         }
