@@ -106,7 +106,7 @@ public class AboutFragment extends Fragment {
     }
 
     private void noBrowserSnack(View v) {
-        Snackbar.make(v, "You cheeky bloke - you need a browser installed for these to work!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(v, getString(R.string.no_browser_error), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -196,13 +196,13 @@ public class AboutFragment extends Fragment {
             public void onClick(View v) {
                 clickCount++;
                 if (clickCount == 5) {
-                    Snackbar.make(v, "Wouldn't it be neat if this did something...", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v, getString(R.string.click1), Snackbar.LENGTH_SHORT).show();
                 }
                 if (clickCount > 5 && clickCount < 10) {
-                    Snackbar.make(v, "It's not like pressing this " + clickCount + " times will do anything... lay off, sheesh", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v, String.format(getString(R.string.click2), clickCount), Snackbar.LENGTH_SHORT).show();
                 }
                 if (clickCount == 10) {
-                    Snackbar.make(v, "... " + clickCount + " times now?! Ok, just quit. I'm going to act like nothing happened, so stop.", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(v, String.format(getString(R.string.click3), clickCount), Snackbar.LENGTH_LONG).show();
                     clickCount = 0;
                 }
             }

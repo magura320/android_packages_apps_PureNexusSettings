@@ -66,6 +66,9 @@ public class TinkerActivity extends AppCompatActivity {
     public static String mPackageName;
     private FragmentManager fragmentManager;
 
+    // this might be handy later - something that can tell other things if root
+    public static boolean isRoot;
+
     // this allows first # entries in stringarray to be skipped from navdrawer
     public static int FRAG_ARRAY_START;
 
@@ -156,9 +159,10 @@ public class TinkerActivity extends AppCompatActivity {
             dialog.dismiss();
 
             if (!suAvailable) {
-                String str = "Root not available?!? Some functions may not work as intended!";
+                String str = context.getResources().getString(R.string.no_root_error);
                 Snackbar.make(parentView, str, Snackbar.LENGTH_SHORT).show();
             }
+            TinkerActivity.isRoot = suAvailable;
         }
     }
 
@@ -348,9 +352,14 @@ public class TinkerActivity extends AppCompatActivity {
         return position == 1 || position == 2 || position == 3 || position == 4;
     }
 
-    private boolean checkEditProp(int position) {
-        // see if current frag is editprop to force buildprop on backpress
-        return position == 2;
+    private int checkSubFrag(int origposition, int newposition) {
+        // see if current frag is further subfrag to force origfrag on backpress
+        switch(origposition) {
+            case 2: //editprop frag
+                return 1; //buildprop frag
+            default:
+                return newposition;
+        }
     }
 
     /* Displaying fragment view for selected nav drawer list item */
@@ -493,7 +502,6 @@ public class TinkerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         boolean mKeepStack = checkPosition(mItemPosition);
-        boolean mIsEditProp = checkEditProp(mItemPosition);
 
         if (!fullyClosed || mDrawerLayout.isDrawerOpen(mNavView)) {
             // backpress closes drawer if open
@@ -511,8 +519,8 @@ public class TinkerActivity extends AppCompatActivity {
                 }
                 // uses fragment name to find displayview-relevant position
                 final int position = Arrays.asList(navMenuFrags).indexOf(fragmentStack.lastElement());
-                // set position based on above or 1 if iseditprop
-                mItemPosition = mIsEditProp ? 1 : position;
+                // set position based on above or origfrag if nested subfrag
+                mItemPosition = checkSubFrag(mItemPosition, position);
                 // a setup similar to onclickitem
                 setTitle(navMenuTitles[mItemPosition]);
                 removeCurrent();

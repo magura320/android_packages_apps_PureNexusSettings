@@ -164,17 +164,18 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
             ((TinkerActivity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
             dialog.dismiss();
 
+            String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak";
             if (mTryCatchFail) {
-                Snackbar.make(mLayout, "Error occurred", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
             } else if (mIsRestore){
-                Snackbar.make(mLayout, "build.prop restored from " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mLayout, String.format(getString(R.string.restore_loc), filepath), Snackbar.LENGTH_LONG).show();
             }
 
             if (EditPropFragment.isProcessing) {
                 if (EditPropFragment.isProcessingError) {
-                    Snackbar.make(mLayout, "Error occurred", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
                 } else {
-                    Snackbar.make(mLayout, "Edit saved and a backup was made at " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(mLayout, String.format(getString(R.string.edit_backup_loc), filepath), Snackbar.LENGTH_LONG).show();
                 }
             }
 
@@ -309,7 +310,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
 
         if (file.getFreeSpace() == 0) {
             mHasRoom = false;
-            Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
         } else {
             mHasRoom = true;
         }
@@ -323,7 +324,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
                 if (mHasRoom) {
                     ((TinkerActivity) getActivity()).displayEditProp(null, null);
                 } else {
-                    Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -375,14 +376,14 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
                 if (mHasRoom) {
                     (new LoadProp()).setInits(getActivity(), mCoordLayout, recyclerView, true).execute();
                 } else {
-                    Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.action_backup:
                 if (mHasRoom) {
                     backup();
                 } else {
-                    Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
                 }
                 return true;
             default:
@@ -430,10 +431,10 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
                 Shell.SU.run("chmod 644 /system/build.prop");
                 Shell.SU.run("mount -o remount,ro  /system");
             } catch (Exception e) {
-                Snackbar.make(mCoordLayout, "Error: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mCoordLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
             }
         } else {
-            Snackbar.make(mCoordLayout, "Error: Backup file does not exist!", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mCoordLayout, getString(R.string.no_backup_error), Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -441,9 +442,9 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak";
         try {
             Shell.SU.run("cp -f /system/build.prop " + filepath);
-            Snackbar.make(mCoordLayout, "build.prop backup at " + filepath, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(mCoordLayout, String.format(getString(R.string.backup_loc), filepath), Snackbar.LENGTH_LONG).show();
         } catch (Exception e) {
-            Snackbar.make(mCoordLayout, "Error: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mCoordLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -451,7 +452,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         if (mHasRoom) {
             ((TinkerActivity)getActivity()).displayEditProp(name, key);
         } else {
-            Snackbar.make(mCoordLayout, "No free space on /system - unable to edit", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
         }
     }
 
