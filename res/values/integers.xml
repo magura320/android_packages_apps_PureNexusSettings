@@ -15,13 +15,6 @@
 -->
 
 <resources>
-    <integer name="winaniscale_factor">1</integer>
-    <integer name="winaniscale_decimalplaces">1</integer>
-    <integer name="trananiscale_factor">1</integer>
-    <integer name="trananiscale_decimalplaces">1</integer>
-    <integer name="anidurscale_factor">1</integer>
-    <integer name="anidurscale_decimalplaces">1</integer>
-    <integer name="locktime_factor">1000</integer>
     <integer name="slidetab_title_offset_dips">24</integer>
     <integer name="slidetab_view_top_padding_dips">8</integer>
     <integer name="slidetab_view_padding_dips">16</integer>

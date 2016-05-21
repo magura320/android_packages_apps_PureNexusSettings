@@ -20,10 +20,10 @@
 
   <!-- About Frag strings -->
     <string name="about_frag_title">About</string>
-    <string name="pushbullet_data">https://www.pushbullet.com/channel?tag=purenexus</string>
-    <string name="gplus_data">https://plus.google.com/communities/103055954354785266764</string>
-    <string name="twit_data">https://twitter.com/BeansTown106</string>
-    <string name="payp_data">http://forum.xda-developers.com/donatetome.php?u=4395895</string>
+    <string name="pushbullet_data" translatable="false">https://www.pushbullet.com/channel?tag=purenexus</string>
+    <string name="gplus_data" translatable="false">https://plus.google.com/communities/103055954354785266764</string>
+    <string name="twit_data" translatable="false">https://twitter.com/BeansTown106</string>
+    <string name="payp_data" translatable="false">http://forum.xda-developers.com/donatetome.php?u=4395895</string>
     <string name="miscinfo_title">App Info</string>
     <string name="miscinfo_summary">Click here for changelog and app-specific credits</string>
     <string name="nexus_about">PureNexus info</string>
@@ -40,9 +40,8 @@
     <string name="devonte">Dwitherell</string>
     <string name="devonte_sum">Coder/tweaker</string>
     <string name="dhack">Dhacker29</string>
-    <string name="dhack_sum">Gapps Base</string>
+    <string name="dhack_sum">Coder/maintainer</string>
     <string name="daveya">DaveyAnnihilation</string>
-    <string name="wally">Wally3614</string>
     <string name="gfx_sum">Graphics/icons</string>
     <string name="surge">Surge1223</string>
     <string name="bajasur">Bajasur</string>
@@ -52,7 +51,7 @@
     <string name="click3">&#8230; %1$d times now?! Ok, just quit. I\'m going to act like nothing happened, so stop</string>
 
   <!-- Alpha string for sliding tab -->
-    <string name="tab_indicator_alpha">0x26</string>
+    <string name="tab_indicator_alpha" translatable="false">0x26</string>
 
   <!-- App picker intent stuff -->
     <string name="apppicker_frag_title">App picker</string>
@@ -115,12 +114,12 @@
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on Color to apply</string>
     <string name="hex">Hex:</string>
-    <string name="hex_hint">#FFDDDDDD</string>
+    <string name="hex_hint" translatable="false">#FFDDDDDD</string>
     <string name="hex_check_button_text">PREVIEW</string>
     <string name="hex_reset_button_text">RESET</string>
     <string name="colorpicker_summary">Current color</string>
-    <string name="color_right_arrow">"→"</string>
-    <string name="color_down_arrow">"↓"</string>
+    <string name="color_right_arrow" translatable="false">"→"</string>
+    <string name="color_down_arrow" translatable="false">"↓"</string>
     <string name="longpress_info">Longpress box to save color</string>
 
   <!-- Content Description -->
@@ -140,6 +139,9 @@
     <string name="buildpropsummary">Click to open build.prop editor</string>
     <string name="fiswitchtitle">Project Fi Tools</string>
     <string name="fiswitchsummary">Click for useful dial codes</string>
+
+  <!-- Display fragment -->
+    <string name="display_frag_title">Display</string>
 
   <!-- Error strings -->
     <string name="no_browser_error">You cheeky bloke - you need a browser installed for these to work!</string>
