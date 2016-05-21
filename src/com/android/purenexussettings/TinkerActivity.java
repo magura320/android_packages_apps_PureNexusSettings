@@ -25,6 +25,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -73,6 +74,7 @@ public class TinkerActivity extends AppCompatActivity {
 
     public static final int REQUEST_CREATE_SHORTCUT = 3;
     public static final String PROJFI_PACKAGE_NAME = "com.google.android.apps.tycho";
+    public static final String KEY_LOCK_CLOCK_PACKAGE_NAME = "com.cyanogenmod.lockclock";
 
     // example - used to retain slidetab position
     public static int LAST_SLIDE_BAR_TAB;
@@ -168,6 +170,7 @@ public class TinkerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // set up some defaults
+        boolean cLockInstalled;
         FRAG_ARRAY_START = getResources().getIntArray(R.array.nav_drawer_cat_nums)[0];
         mTitle = mDrawerTitle = getTitle();
         mPackageName = getPackageName();
@@ -181,6 +184,14 @@ public class TinkerActivity extends AppCompatActivity {
 
         // for backstack tracking
         fragmentStack = new Stack<>();
+
+        // check if cLock installed
+        try {
+            PackageInfo pi = getPackageManager().getPackageInfo(KEY_LOCK_CLOCK_PACKAGE_NAME, 0);
+            cLockInstalled = pi.applicationInfo.enabled;
+        } catch (PackageManager.NameNotFoundException e) {
+            cLockInstalled = false;
+        }
 
         // load slide menu items - titles and frag names
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -225,11 +236,13 @@ public class TinkerActivity extends AppCompatActivity {
                 // format menu item title
                 SpannableString stritem= new SpannableString(navMenuTitles[i]);
                 stritem.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.alphawhite)), 0, stritem.length(),0);
-                // group id is j, i is item id and order..., then title
-                submenu.add(j, i, i, stritem);
-                // an attempt to add icon if included...
-                if (navMenuIcons.getResourceId(i, -1) != -1) {
-                    menu.getItem(i).setIcon(navMenuIcons.getResourceId(i, -1));
+                // group id is j, i is item id and order..., then title - includes logic for conditional entries
+                if ( cLockInstalled || !(navMenuTitles[i].equals("cLock")) ) {
+                    submenu.add(j, i, i, stritem);
+                    // an attempt to add icon if included...
+                    if (navMenuIcons.getResourceId(i, -1) != -1) {
+                        submenu.getItem(i).setIcon(navMenuIcons.getResourceId(i, -1));
+                    }
                 }
             }
         }
@@ -237,11 +250,21 @@ public class TinkerActivity extends AppCompatActivity {
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                mItemPosition = item.getItemId();
-                mFromClick = true;
-                setTitle(navMenuTitles[mItemPosition]);
-                removeCurrent();
-                mDrawerLayout.closeDrawer(mNavView);
+                // check for external app launching navdrawer items
+                if ( navMenuTitles[item.getItemId()].equals("cLock") ) {
+                    mIgnore = true;
+                    launchcLock();
+                }
+                
+                // if nothing was caught in the above, do the usual prep to show frag stuff
+                if (!mIgnore) {
+                    mItemPosition = item.getItemId();
+                    mFromClick = true;
+                    setTitle(navMenuTitles[mItemPosition]);
+                    removeCurrent();
+                    mDrawerLayout.closeDrawer(mNavView);
+                }
+
                 return true;
             }
         });
@@ -344,23 +367,26 @@ public class TinkerActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
 
-            FragmentTransaction fragtrans = fragmentManager.beginTransaction();
-            if (mFromClick || mMenu || mBackPress) {
-                fragtrans.setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout);
-            }
-            fragtrans.add(R.id.frame_container, frags);
-            // The backstack should be cleared if not coming from a fragment flagged as stack keeping or from a backpress
-            // After clearing the only entry should be About/main
-            if (!mKeepStack && !mBackPress) {
-                fragmentStack.clear();
-                fragmentStack.push(navMenuFrags[0]);
-            }
-            // add fragment name to custom stack for backstack tracking
-            // only do it if not a backpress, flagged as stack keeping, or dup of last entry
-            if (!mBackPress && !mKeepStack && !(fragmentStack.size() >= 1 && fragmentStack.peek().equals(navMenuFrags[position]))) {
-                fragmentStack.push(navMenuFrags[position]);
-            }
-            fragtrans.commit();
+            try {
+                FragmentTransaction fragtrans = fragmentManager.beginTransaction();
+                if (mFromClick || mMenu || mBackPress) {
+                    fragtrans.setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout);
+                }
+                fragtrans.add(R.id.frame_container, frags);
+                // The backstack should be cleared if not coming from a fragment flagged as stack keeping or from a backpress
+                // After clearing the only entry should be About/main
+                if (!mKeepStack && !mBackPress) {
+                    fragmentStack.clear();
+                    fragmentStack.push(navMenuFrags[0]);
+                }
+                // add fragment name to custom stack for backstack tracking
+                // only do it if not a backpress, flagged as stack keeping, or dup of last entry
+                if (!mBackPress && !mKeepStack && !(fragmentStack.size() >= 1 && fragmentStack.peek().equals(navMenuFrags[position]))) {
+                    fragmentStack.push(navMenuFrags[position]);
+                }
+
+                fragtrans.commit();
+            } catch (Exception e) { }
 
             // update selected item and title, then close the drawer
             if (mFromClick || mBackPress) {
@@ -450,6 +476,13 @@ public class TinkerActivity extends AppCompatActivity {
                 displayView(4);
             }
         }, 400);
+    }
+
+    public void launchcLock() {
+        Intent link = new Intent(Intent.ACTION_MAIN);
+        ComponentName cn = new ComponentName("com.cyanogenmod.lockclock", "com.cyanogenmod.lockclock.preference.Preferences");
+        link.setComponent(cn);
+        startActivity(link);
     }
 
     @Override

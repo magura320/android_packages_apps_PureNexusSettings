@@ -29,7 +29,7 @@
         <item>1</item>
         <item>1</item>
         <item>1</item>
-        <item>1</item>
+        <item>2</item>
     </integer-array>
 
     <!-- Nav Drawer Menu Items -->
@@ -43,6 +43,7 @@
         <item>Navigation bar</item>
         <item>Display</item>
         <item>Tools and info</item>
+        <item>cLock</item>
     </string-array>
 
     <!-- Nav Drawer Fragment names-->
@@ -56,6 +57,7 @@
         <item>LockscreenFragment</item>
         <item>NavbarFragment</item>
         <item>DisplayFragment</item>
+        <item>nullcLock</item>
         <item>DeviceFragment</item>
     </string-array>
 
@@ -63,6 +65,7 @@
     <!-- Keep them in order as the titles are in -->
     <!-- Also note that icons for items not in navdrawer won't be shown -->
     <array name="nav_drawer_icons" translatable="false">
+        <item>null</item>
         <item>null</item>
         <item>null</item>
         <item>null</item>

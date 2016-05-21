@@ -182,7 +182,7 @@ public class AboutFragment extends Fragment {
                     Snackbar.make(v, "It's not like pressing this " + clickCount + " times will do anything... lay off, sheesh", Snackbar.LENGTH_SHORT).show();
                 }
                 if (clickCount == 10) {
-                    Snackbar.make(v, "... " + clickCount + " times now?! Ok, just quit. I'm going to act like nothing happened, so stop.", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v, "... " + clickCount + " times now?! Ok, just quit. I'm going to act like nothing happened, so stop.", Snackbar.LENGTH_LONG).show();
                     clickCount = 0;
                 }
             }
