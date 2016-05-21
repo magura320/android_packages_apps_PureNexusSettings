@@ -17,11 +17,11 @@
 <resources>
     <!-- Nav Drawer categories -->
     <!-- keep in the order they will appear! -->
-    <string-array name="nav_drawer_cats">
-        <item>Interface</item>
-        <item>Buttons</item>
-        <item>System</item>
-        <item>Utilities</item>
+    <string-array name="nav_drawer_cats" translatable="false">
+        <item>@string/interface_cat_title</item>
+        <item>@string/button_cat_title</item>
+        <item>@string/system_cat_title</item>
+        <item>@string/util_cat_title</item>
     </string-array>
 
     <integer-array name="nav_drawer_cat_nums" translatable="false">
@@ -33,17 +33,17 @@
     </integer-array>
 
     <!-- Nav Drawer Menu Items -->
-    <string-array name="nav_drawer_items">
-        <item>About</item>
-        <item>Build prop</item>
-        <item>Edit build prop</item>
-        <item>App picker</item>
-        <item>Fi Switch</item>
-        <item>Lock screen</item>
-        <item>Navigation bar</item>
-        <item>Display</item>
-        <item>cLock</item>
-        <item>Tools and info</item>
+    <string-array name="nav_drawer_items" translatable="false">
+        <item>@string/about_frag_title</item>
+        <item>@string/buildprop_frag_title</item>
+        <item>@string/buildprop_frag_title2</item>
+        <item>@string/apppicker_frag_title</item>
+        <item>@string/fiswitch_frag_title</item>
+        <item>@string/lockscreen_frag_title</item>
+        <item>@string/navbar_frag_title</item>
+        <item>@string/display_frag_title</item>
+        <item>@string/clock_frag_title</item>
+        <item>@string/toolinfo_frag_title</item>
     </string-array>
 
     <!-- Nav Drawer Fragment names-->
@@ -78,10 +78,10 @@
     </array>
 
  <!-- Example sliding tab titles -->
-    <string-array name="app_pick_items">
-        <item>Custom</item>
-        <item>Applications</item>
-        <item>Shortcuts</item>
+    <string-array name="app_pick_items" translatable="false">
+        <item>@string/apppick_custom</item>
+        <item>@string/apppick_apps</item>
+        <item>@string/apppick_shortcuts</item>
     </string-array>
 
     <!-- Example sildingtab Fragment names-->

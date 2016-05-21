@@ -19,6 +19,7 @@
     <string name="app_name">PureNexus</string>
 
   <!-- About Frag strings -->
+    <string name="about_frag_title">About</string>
     <string name="pushbullet_data">https://www.pushbullet.com/channel?tag=purenexus</string>
     <string name="gplus_data">https://plus.google.com/communities/103055954354785266764</string>
     <string name="twit_data">https://twitter.com/BeansTown106</string>
@@ -51,6 +52,10 @@
     <string name="tab_indicator_alpha">0x26</string>
 
   <!-- App picker intent stuff -->
+    <string name="apppicker_frag_title">App picker</string>
+    <string name="apppick_custom">Custom</string>
+    <string name="apppick_apps">Applications</string>
+    <string name="apppick_shortcuts">Shortcuts</string>
     <string name="screen_off">Screen off</string>
     <string name="powermenu">Power menu</string>
     <string name="donothing">Do nothing</string>
@@ -85,6 +90,8 @@
 &#8226; Those not mentioned but should have been<br />]]></string>
 
   <!-- BuildProp editor -->
+    <string name="buildprop_frag_title">Build prop</string>
+    <string name="buildprop_frag_title2">Edit build prop</string>
     <string name="editprop_key">Property Key</string>
     <string name="editprop_name">Property Name</string>
     <string name="editprop_title">Edit/Add Property</string>
@@ -92,6 +99,9 @@
     <string name="editprop_unsaved_changes_message">Would you like to set this property?</string>
     <string name="editprop_delete_item_title">Delete Item</string>
     <string name="editprop_delete_item_message">Would you like to delete this property?</string>
+
+  <!-- cLock -->
+    <string name="clock_frag_title">cLock</string>
 
   <!-- Color picker strings -->
     <string name="dialog_color_picker">Color Picker</string>
@@ -109,6 +119,7 @@
     <string name="desc_list_item_icon">Item Icon</string>
 
   <!-- Device Frag strings -->
+    <string name="toolinfo_frag_title">Tools and info</string>
     <string name="device_info_title">Phone info</string>
     <string name="device_summ">Get general info about your device</string>
     <string name="title_battery_history">Battery history</string>
@@ -123,6 +134,7 @@
     <string name="fiswitchsummary">Click for useful dial codes</string>
 
   <!-- FiSwitch Frag strings -->
+    <string name="fiswitch_frag_title">Fi Switch</string>
     <string name="dial1">Sprint</string>
     <string name="dial1_sum">Force jump to Sprint</string>
     <string name="dial2">T-Mobile</string>
@@ -135,6 +147,21 @@
     <string name="dial5_sum">Resets everything</string>
     <string name="dial6">Info</string>
     <string name="dial6_sum">Current network info</string>
+    
+  <!-- Lockscreen Fragment -->
+    <string name="lockscreen_frag_title">Lockscreen</string>
+
+  <!-- Navdrawer categories -->
+    <string name="interface_cat_title">Interface</string>
+    <string name="button_cat_title">Buttons</string>
+    <string name="system_cat_title">System</string>
+    <string name="util_cat_title">Utilities</string>
+
+  <!-- Navbar fragment -->
+    <string name="navbar_frag_title">Navigation bar</string>
+
+  <!-- Notification drawer fragment -->
+    <string name="notifdraw_frag_title">Notification drawer</string>
 
   <!-- toolbar menu strings -->
     <string name="action_settings">Settings</string>
