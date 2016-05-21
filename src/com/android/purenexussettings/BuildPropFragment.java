@@ -73,6 +73,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         private String[] pTitle;
         private ArrayList<Map<String, String>> proplist;
         private BuildPropRecyclerAdapter mAdapter;
+        private boolean suAvailable = false;
 
         public LoadProp setInits(Context context, CoordinatorLayout layout, RecyclerView list, Boolean restore) {
             this.context = context;
@@ -87,8 +88,8 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
             // The progress dialog here is so the user will wait until the prop stuff has loaded
 
             dialog = new ProgressDialog(context);
-            dialog.setTitle("Hold on a sec");
-            dialog.setMessage("Loading stuff...");
+            dialog.setTitle(getString(R.string.wait_title));
+            dialog.setMessage(getString(R.string.wait_message));
             dialog.setIndeterminate(true);
             dialog.setCancelable(false);
 
@@ -100,6 +101,8 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
 
         @Override
         protected Void doInBackground(Void... params) {
+            suAvailable = Shell.SU.available();
+
             mTryCatchFail = false;
             // copy over backup if from restore trigger
             if (mIsRestore) {
@@ -165,7 +168,10 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
             dialog.dismiss();
 
             String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak";
-            if (mTryCatchFail) {
+
+            if (!suAvailable) {
+                Snackbar.make(mLayout, getString(R.string.no_root_error), Snackbar.LENGTH_SHORT).show();
+            } else if (mTryCatchFail) {
                 Snackbar.make(mLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
             } else if (mIsRestore){
                 Snackbar.make(mLayout, String.format(getString(R.string.restore_loc), filepath), Snackbar.LENGTH_LONG).show();
@@ -181,6 +187,8 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
 
             EditPropFragment.isProcessing = false;
             EditPropFragment.isProcessingError = false;
+
+            TinkerActivity.isRoot = suAvailable;
         }
     }
 

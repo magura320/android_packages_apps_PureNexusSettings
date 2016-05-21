@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -55,8 +53,6 @@ import android.view.View;
 
 import java.util.Arrays;
 import java.util.Stack;
-
-import eu.chainfire.libsuperuser.Shell;
 
 public class TinkerActivity extends AppCompatActivity {
 
@@ -118,54 +114,6 @@ public class TinkerActivity extends AppCompatActivity {
 
     // For handling quick back/About presses
     Handler myHandler = new Handler();
-
-    private class Startup extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog dialog = null;
-        private Context context = null;
-        private View parentView = null;
-        private boolean suAvailable = false;
-
-        public Startup setContext(Context context, View view) {
-            this.context = context;
-            this.parentView = view;
-            return this;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            // The progress dialog here is so the user will wait until root stuff is figured out.
-
-            dialog = new ProgressDialog(context);
-            dialog.setTitle("Hold on a sec");
-            dialog.setMessage("Trying to find root...");
-            dialog.setIndeterminate(true);
-            dialog.setCancelable(false);
-
-            // A semi-hack way to prevent FCs when orientation changes during progress dialog showing
-            TinkerActivity.lockCurrentOrientation((TinkerActivity) context);
-
-            dialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            // Let's check to see if SU is there...
-            suAvailable = Shell.SU.available();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            ((TinkerActivity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-            dialog.dismiss();
-
-            if (!suAvailable) {
-                String str = context.getResources().getString(R.string.no_root_error);
-                Snackbar.make(parentView, str, Snackbar.LENGTH_SHORT).show();
-            }
-            TinkerActivity.isRoot = suAvailable;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -332,9 +280,6 @@ public class TinkerActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         fragmentManager = getFragmentManager();
-
-        // check for root stuff
-        (new Startup()).setContext(this, findViewById(R.id.frame_container)).execute();
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item

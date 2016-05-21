@@ -105,6 +105,8 @@
     <string name="restore_loc">build.prop restored from %1$s</string>
     <string name="edit_backup_loc">Edit saved and a backup was made at %1$s</string>
     <string name="backup_loc">build.prop backup at %1$s</string>
+    <string name="wait_title">Hold on a sec</string>
+    <string name="wait_message">Loading stuff and checking for root&#8230;</string>
 
   <!-- cLock -->
     <string name="clock_frag_title">cLock</string>
