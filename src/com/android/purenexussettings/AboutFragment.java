@@ -105,6 +105,10 @@ public class AboutFragment extends Fragment {
         clickCount = 0;
     }
 
+    private void noBrowserSnack(View v) {
+        Snackbar.make(v, "You cheeky bloke - you need a browser installed for these to work!", Snackbar.LENGTH_LONG).show();
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.about_frag_card, container, false);
@@ -112,7 +116,7 @@ public class AboutFragment extends Fragment {
         final LinearLayout logo = (LinearLayout)v.findViewById(R.id.logo_card);
         LinearLayout thanks = (LinearLayout)v.findViewById(R.id.credits_card);
 
-        //gplus
+        //pushbullet
         LinearLayout link1 = (LinearLayout)v.findViewById(R.id.link1_card);
         //gplus
         LinearLayout link2 = (LinearLayout)v.findViewById(R.id.link2_card);
@@ -137,7 +141,11 @@ public class AboutFragment extends Fragment {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 Uri url = Uri.parse(getString(R.string.pushbullet_data));
                 link.setData(url);
-                startActivity(link);
+                try {
+                    startActivity(link);
+                } catch (android.content.ActivityNotFoundException e) {
+                    noBrowserSnack(v);
+                }
             }
         });
 
@@ -147,7 +155,11 @@ public class AboutFragment extends Fragment {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 Uri url = Uri.parse(getString(R.string.gplus_data));
                 link.setData(url);
-                startActivity(link);
+                try {
+                    startActivity(link);
+                } catch (android.content.ActivityNotFoundException e) {
+                    noBrowserSnack(v);
+                }
             }
         });
 
@@ -157,7 +169,11 @@ public class AboutFragment extends Fragment {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 Uri url = Uri.parse(getString(R.string.twit_data));
                 link.setData(url);
-                startActivity(link);
+                try {
+                    startActivity(link);
+                } catch (android.content.ActivityNotFoundException e) {
+                    noBrowserSnack(v);
+                }
             }
         });
 
@@ -167,7 +183,11 @@ public class AboutFragment extends Fragment {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 Uri url = Uri.parse(getString(R.string.payp_data));
                 link.setData(url);
-                startActivity(link);
+                try {
+                    startActivity(link);
+                } catch (android.content.ActivityNotFoundException e) {
+                    noBrowserSnack(v);
+                }
             }
         });
 

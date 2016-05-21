@@ -257,6 +257,7 @@ public class TinkerActivity extends AppCompatActivity {
                 // check for external app launching navdrawer items
                 if ( navMenuTitles[item.getItemId()].equals("cLock") ) {
                     mIgnore = true;
+                    mDrawerLayout.closeDrawer(mNavView);
                     launchcLock();
                 }
                 
