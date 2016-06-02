@@ -25,8 +25,10 @@ public class StatusBarFragment extends PreferenceFragment {
 
     public StatusBarFragment(){}
 
+    private static final String CLOCKDATEFRAG = "clockdatefrag";
     private static final String NETWORKTRAFFRAG = "nettraffrag";
 
+    private Preference mClockDate;
     private Preference mNetTraf;
 
     @Override
@@ -34,11 +36,17 @@ public class StatusBarFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.statusbar_fragment);
 
+        mClockDate = findPreference(CLOCKDATEFRAG);
         mNetTraf = findPreference(NETWORKTRAFFRAG);
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mClockDate) {
+            ((TinkerActivity)getActivity()).displaySubFrag(getString(R.string.clockdate_frag_title));
+
+            return true;
+        }
         if (preference == mNetTraf) {
             ((TinkerActivity)getActivity()).displaySubFrag(getString(R.string.nettraffic_frag_title));
 

@@ -18,6 +18,11 @@
     xmlns:pure="http://schemas.android.com/apk/res-auto" >
 
     <Preference
+        android:key="clockdatefrag" 
+        android:title="@string/clockdate_frag_title"
+        android:summary="@string/clock_frag_summary" />
+
+    <Preference
         android:key="nettraffrag" 
         android:title="@string/nettraffic_frag_title"
         android:summary="@string/status_bar_traffic_summary" />
