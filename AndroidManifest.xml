@@ -24,8 +24,11 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.android.purenexussettings.TINKERMAIN" />
+                <action android:name="com.android.settings.action.EXTRA_SETTINGS"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <meta-data android:name="com.android.settings.category" android:value="com.android.settings.category.custom"/>
+            <meta-data android:name="com.android.settings.icon" android:resource="@drawable/ic_settings_purenexus"/>
         </activity>
         <activity
             android:name=".LauncherActivity"
