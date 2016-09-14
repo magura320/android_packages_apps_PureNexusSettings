@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import android.support.annotation.NonNull;
 
 public class LockscreenFragment extends PreferenceFragment {
     public LockscreenFragment(){}
@@ -28,13 +27,11 @@ public class LockscreenFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.lockscreen_fragment);
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen prefScreen, @NonNull Preference pref) {
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         return false;
     }
 }

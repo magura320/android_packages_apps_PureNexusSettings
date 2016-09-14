@@ -24,9 +24,6 @@
     <Preference android:title="@string/title_usage_statistics" android:key="usage_statistics_settings" android:summary="@string/summary_usage_statistics">
         <intent android:targetPackage="com.android.settings" android:action="android.intent.action.MAIN" android:targetClass="com.android.settings.UsageStatsActivity" />
     </Preference>
-    <Preference android:title="@string/wifi_title" android:summary="@string/wifi_summary">
-        <intent android:targetPackage="com.android.settings" android:action="android.intent.action.MAIN" android:targetClass="com.android.settings.wifi.WifiInfo" />
-    </Preference>
     <Preference android:title="@string/buildproptitle" android:key="buildpropeditor" android:summary="@string/buildpropsummary" />
     <Preference android:title="@string/fiswitchtitle" android:key="fiswitch" android:summary="@string/fiswitchsummary" />
 </PreferenceScreen>

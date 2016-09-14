@@ -162,8 +162,8 @@
             pure:cardCornerRadius="@dimen/cardview_rounding">
 
             <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingTop="@dimen/cardview_padding" android:paddingBottom="@dimen/cardview_padding" android:paddingStart="@dimen/cardview_pref_padding" android:paddingEnd="@dimen/cardview_padding">
-                <TextView  android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:text="@string/dhack" android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@color/cardview_pref_title" android:gravity="bottom" />
-                <TextView  android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:text="@string/dhack_sum" android:textAppearance="?android:attr/textAppearanceSmall" android:gravity="top" />
+                <TextView  android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:text="@string/nacha" android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@color/cardview_pref_title" android:gravity="bottom" />
+                <TextView  android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:text="@string/mod_sum" android:textAppearance="?android:attr/textAppearanceSmall" android:gravity="top" />
             </LinearLayout>
 
         </android.support.v7.widget.CardView>

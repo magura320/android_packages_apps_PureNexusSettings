@@ -16,7 +16,7 @@
 
 <resources xmlns:xliff="http://schemas.android.com/apk/res/android">
   <!-- App Name -->
-    <string name="app_name">PureNexus</string>
+    <string name="app_name">PureNexus settings</string>
 
   <!-- About Frag strings -->
     <string name="about_frag_title">About</string>
@@ -39,8 +39,8 @@
     <string name="contribute">Contributors</string>
     <string name="devonte">Dwitherell</string>
     <string name="devonte_sum">Coder/tweaker</string>
-    <string name="dhack">Dhacker29</string>
-    <string name="dhack_sum">Coder/maintainer</string>
+    <string name="nacha">NathanChance</string>
+    <string name="mod_sum">Support/moderation</string>
     <string name="daveya">DaveyAnnihilation</string>
     <string name="gfx_sum">Graphics/icons</string>
     <string name="surge">Surge1223</string>

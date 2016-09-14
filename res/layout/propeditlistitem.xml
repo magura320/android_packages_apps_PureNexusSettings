@@ -18,7 +18,7 @@
     xmlns:pure="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     pure:cardUseCompatPadding="true"
     pure:cardElevation="@dimen/cardview_elevate"
     pure:cardBackgroundColor="@color/cardlayout_bg"
@@ -29,7 +29,7 @@
         android:background="?android:selectableItemBackground"
         android:id="@+id/clicklayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
