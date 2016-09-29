@@ -146,6 +146,9 @@
     <string name="dial6">Info</string>
     <string name="dial6_sum">Current network info</string>
     
+  <!-- Lockscreen Fragment -->
+    <string name="lockscreen_frag_title">Lockscreen</string>
+
   <!-- Navdrawer categories -->
     <string name="interface_cat_title">Interface</string>
     <string name="button_cat_title">Buttons</string>
