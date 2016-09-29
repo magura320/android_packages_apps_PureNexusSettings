@@ -159,6 +159,6 @@ public class FiSwitchFragment extends Fragment {
         return fabAdd != null && prefs.getBoolean(FI_FAB_ENABLED, fabAdd.getVisibility() != View.GONE);
     }
 
-    public FiSwitchFragment() {};
+    public FiSwitchFragment() {}
 }
 

@@ -35,7 +35,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.purenexussettings.R;
-import com.android.purenexussettings.TinkerActivity;
 
 
 public class SlidingTabLayout extends HorizontalScrollView {

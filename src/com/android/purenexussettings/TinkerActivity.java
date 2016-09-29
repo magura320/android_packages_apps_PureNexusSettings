@@ -21,7 +21,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
@@ -29,10 +28,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.preference.Preference;
-import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
@@ -71,7 +67,6 @@ public class TinkerActivity extends AppCompatActivity {
     // stuff for widget calls to open fragments
     public static final String EXTRA_START_FRAGMENT = "com.android.purenexussettings.tinkerings.EXTRA_START_FRAGMENT";
 
-    public static final int REQUEST_CREATE_SHORTCUT = 3;
     public static final String PROJFI_PACKAGE_NAME = "com.google.android.apps.tycho";
     public static final String KEY_LOCK_CLOCK_PACKAGE_NAME = "com.cyanogenmod.lockclock";
     public static final String KEY_LOCK_CLOCK_CLASS_NAME = "com.cyanogenmod.lockclock.preference.Preferences";
@@ -105,12 +100,6 @@ public class TinkerActivity extends AppCompatActivity {
     // info for buildprop editor
     public static String mEditName;
     public static String mEditKey;
-
-    // info for app picker
-    public static String mPrefKey;
-    public static int mTitleArray;
-    public static int mIconArray;
-    public static int mKeyArray;
 
     // For handling quick back/About presses
     Handler myHandler = new Handler();
@@ -376,25 +365,6 @@ public class TinkerActivity extends AppCompatActivity {
         fragtrans.commit();
     }
 
-    public void displayAppPicker(Preference object, int titles, int icons, int keys) {
-        // stuff for apppicker fragment
-        mPrefKey = object.getKey();
-        mTitleArray = titles;
-        mIconArray = icons;
-        mKeyArray = keys;
-
-        myHandler.removeCallbacksAndMessages(null);
-        mMenu = true;
-        removeCurrent();
-        // below replicates the visual delay seen when launching frags from navdrawer
-        myHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                displayView(3);
-            }
-        }, 400);
-    }
-
     public void displayEditProp(String name, String key) {
         // put the name and key strings in here for editprop access
         mEditName = name;
@@ -540,16 +510,15 @@ public class TinkerActivity extends AppCompatActivity {
             menu.setGroupVisible(R.id.action_items, true);
             boolean isbuildprop = (mItemPosition == 1);
             boolean iseditprop = (mItemPosition == 2);
-            boolean isapppicker = (mItemPosition == 3);
-            boolean isfiswitch = (mItemPosition == 4);
+            boolean isfiswitch = (mItemPosition == 3);
             menu.findItem(R.id.action_backup).setVisible(isbuildprop);
             menu.findItem(R.id.action_restore).setVisible(isbuildprop);
             menu.findItem(R.id.action_search).setVisible(isbuildprop);
             menu.findItem(R.id.action_discard).setVisible(iseditprop);
             menu.findItem(R.id.action_delete).setVisible(iseditprop);
             menu.findItem(R.id.action_fabhide).setVisible(isfiswitch);
-            menu.findItem(R.id.action_launchhide).setVisible(!(isbuildprop || iseditprop || isapppicker ||isfiswitch));
-            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isapppicker || isfiswitch));
+            menu.findItem(R.id.action_launchhide).setVisible(!(isbuildprop || iseditprop ||isfiswitch));
+            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isfiswitch));
         } else {
             menu.setGroupVisible(R.id.action_items, false);
         }
@@ -592,28 +561,6 @@ public class TinkerActivity extends AppCompatActivity {
     public boolean isLauncherIconEnabled() {
         PackageManager packman = getPackageManager();
         return (packman.getComponentEnabledSetting(new ComponentName(this, LauncherActivity.class)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
-    }
-
-    @Override
-    protected void onActivityResult(int paramRequest, int paramResult, Intent paramData) {
-        super.onActivityResult(paramRequest, paramResult, paramData);
-        if (paramResult != -1 || paramData == null) {
-            return;
-        }
-        switch (paramRequest)
-        {
-            case REQUEST_CREATE_SHORTCUT:
-                Intent localIntent = paramData.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
-                localIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, paramData.getStringExtra(Intent.EXTRA_SHORTCUT_NAME));
-
-                String keystring = localIntent.toUri(0).replaceAll("com.android.contacts.action.QUICK_CONTACT", Intent.ACTION_VIEW);
-
-                Settings.Global.putString(getContentResolver(), TinkerActivity.mPrefKey, keystring);
-                onBackPressed();
-
-                return;
-            default:
-        }
     }
 
     public static void lockCurrentOrientation(Activity activity) {

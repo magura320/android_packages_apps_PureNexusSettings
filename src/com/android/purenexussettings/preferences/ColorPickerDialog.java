@@ -20,8 +20,6 @@ package com.android.purenexussettings.preferences;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -35,7 +33,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.purenexussettings.R;
-import com.android.purenexussettings.TinkerActivity;
 import com.android.purenexussettings.preferences.ColorPickerView.OnColorChangedListener;
 
 import java.util.Locale;

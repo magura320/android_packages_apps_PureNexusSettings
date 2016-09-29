@@ -25,10 +25,10 @@
     </string-array>
 
     <integer-array name="nav_drawer_cat_nums" translatable="false">
-        <item>5</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
+        <item>4</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
         <item>2</item>
     </integer-array>
 
@@ -37,11 +37,7 @@
         <item>@string/about_frag_title</item>
         <item>@string/buildprop_frag_title</item>
         <item>@string/buildprop_frag_title2</item>
-        <item>@string/apppicker_frag_title</item>
         <item>@string/fiswitch_frag_title</item>
-        <item>@string/lockscreen_frag_title</item>
-        <item>@string/navbar_frag_title</item>
-        <item>@string/display_frag_title</item>
         <item>@string/clock_frag_title</item>
         <item>@string/toolinfo_frag_title</item>
     </string-array>
@@ -52,11 +48,7 @@
         <item>AboutFragment</item>
         <item>BuildPropFragment</item>
         <item>EditPropFragment</item>
-        <item>AppPickerFragment</item>
         <item>FiSwitchFragment</item>
-        <item>LockscreenFragment</item>
-        <item>NavbarFragment</item>
-        <item>DisplayFragment</item>
         <item>nullcLock</item>
         <item>DeviceFragment</item>
     </string-array>
@@ -71,67 +63,5 @@
         <item>null</item>
         <item>null</item>
         <item>null</item>
-        <item>null</item>
-        <item>null</item>
-        <item>null</item>
-        <item>null</item>
     </array>
-
- <!-- Example sliding tab titles -->
-    <string-array name="app_pick_items" translatable="false">
-        <item>@string/apppick_custom</item>
-        <item>@string/apppick_apps</item>
-        <item>@string/apppick_shortcuts</item>
-    </string-array>
-
-    <!-- Example sildingtab Fragment names-->
-    <!-- Keep them in order as the titles are in -->
-    <string-array name="apppick_tab_fragments" translatable="false">
-        <item>AppPickerCustomFragment</item>
-        <item>AppPickerAppFragment</item>
-        <item>AppPickerShortFragment</item>
-    </string-array>
-
-    <!-- Titles for custom items to apppicker -->
-    <string-array name="apppicker_extras" translatable="false">
-        <item>@string/donothing</item>
-        <item>@string/app_name</item>
-        <item>@string/screen_off</item>
-    </string-array>
-
-    <!-- Icons for custom items to apppicker -->
-    <!-- Keep them in order as the titles are in -->
-    <string-array name="apppicker_icons_extras" translatable="false">
-        <item>@drawable/ic_launcher_donothing</item>
-        <item>@drawable/ic_launcher_apps</item>
-        <item>@drawable/ic_launcher_screenoff</item>
-    </string-array>
-
-    <!-- Keys for custom items to apppicker -->
-    <!-- Keep them in order as the titles are in -->
-    <string-array name="apppicker_keys_extras" translatable="false">
-        <item>donothingintent</item>
-        <item>null</item>
-        <item>screenoffintent</item>
-    </string-array>
-
-    <!-- Titles for custom items to apppicker -->
-    <string-array name="apppicker_2_extras" translatable="false">
-        <item>@string/donothing</item>
-        <item>@string/app_name</item>
-    </string-array>
-
-    <!-- Icons for custom items to apppicker -->
-    <!-- Keep them in order as the titles are in -->
-    <string-array name="apppicker_2_icons_extras" translatable="false">
-        <item>@drawable/ic_launcher_donothing</item>
-        <item>@drawable/ic_launcher_apps</item>
-    </string-array>
-
-    <!-- Keys for custom items to apppicker -->
-    <!-- Keep them in order as the titles are in -->
-    <string-array name="apppicker_2_keys_extras" translatable="false">
-        <item>donothingintent</item>
-        <item>null</item>
-    </string-array>
 </resources>
