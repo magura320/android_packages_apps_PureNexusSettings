@@ -182,6 +182,9 @@
     <!-- Power menu on secure lockscreen -->
     <string name="lockscreen_enable_power_menu_title">Show power menu on secure lock screen</string>
 
+  <!-- statusbar fragment -->
+    <string name="statusbar_frag_title">Status bar</string>
+
   <!-- toolbar menu strings -->
     <string name="action_about">About</string>
     <string name="action_launchhide">Drawer hide</string>
