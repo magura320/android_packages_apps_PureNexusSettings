@@ -189,4 +189,7 @@
     <string name="editprop_backup">Backup</string>
     <string name="editprop_restore">Restore</string>
     <string name="action_fabhide">Show FAB</string>
+
+  <!-- volumerocker fragment -->
+    <string name="volrock_frag_title">Volume rocker</string>
 </resources>
