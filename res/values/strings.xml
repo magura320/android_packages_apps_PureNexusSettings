@@ -183,6 +183,9 @@
     <string name="network_traffic_hidearrow">Hide arrows</string>
     <string name="network_traffic_hidearrow_summary">Hide the arrows in the traffic indicator</string>
 
+  <!-- Notification drawer fragment -->
+    <string name="notifdraw_frag_title">Notification drawer</string>
+
   <!-- powermenu fragment -->
     <string name="powermenu_frag_title">PowerMenu</string>
     <string name="power_category">Power menu options</string>

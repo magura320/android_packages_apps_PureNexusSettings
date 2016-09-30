@@ -26,7 +26,7 @@
 
     <integer-array name="nav_drawer_cat_nums" translatable="false">
         <item>5</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
-        <item>2</item>
+        <item>3</item>
         <item>2</item>
         <item>0</item>
         <item>2</item>
@@ -40,6 +40,7 @@
         <item>@string/fiswitch_frag_title</item>
         <item>@string/nettraffic_frag_title</item>
         <item>@string/lockscreen_frag_title</item>
+        <item>@string/notifdraw_frag_title</item>
         <item>@string/statusbar_frag_title</item>
         <item>@string/powermenu_frag_title</item>
         <item>@string/volrock_frag_title</item>
@@ -56,6 +57,7 @@
         <item>FiSwitchFragment</item>
         <item>NetworkTrafficFragment</item>
         <item>LockscreenFragment</item>
+        <item>NotificationDrawerFragment</item>
         <item>StatusBarFragment</item>
         <item>PowerMenuFragment</item>
         <item>VolumeRockerFragment</item>
@@ -67,6 +69,7 @@
     <!-- Keep them in order as the titles are in -->
     <!-- Also note that icons for items not in navdrawer won't be shown -->
     <array name="nav_drawer_icons" translatable="false">
+        <item>null</item>
         <item>null</item>
         <item>null</item>
         <item>null</item>
