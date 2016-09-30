@@ -20,9 +20,7 @@ import android.content.ContentResolver;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
 import android.provider.Settings;
 
 public class VolumeRockerFragment extends PreferenceFragment implements

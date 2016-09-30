@@ -26,8 +26,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 
-import com.android.purenexussettings.R;
-
 public class NotificationDrawerFragment extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 

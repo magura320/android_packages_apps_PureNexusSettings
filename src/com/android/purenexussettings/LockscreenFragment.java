@@ -19,8 +19,8 @@ package com.android.purenexussettings;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-import com.android.purenexussettings.utils.Utils;
 import com.android.purenexussettings.preferences.SystemSettingSwitchPreference;
+import com.android.purenexussettings.utils.Utils;
 
 public class LockscreenFragment extends PreferenceFragment {
 

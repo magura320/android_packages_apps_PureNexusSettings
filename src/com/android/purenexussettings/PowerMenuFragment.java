@@ -29,17 +29,15 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 
-import com.android.purenexussettings.preferences.SystemSettingSwitchPreference;
+import com.android.internal.util.purenexus.PowerMenuConstants;
+import com.android.internal.widget.LockPatternUtils;
 import com.android.purenexussettings.utils.Utils;
 
-import com.android.internal.util.purenexus.PowerMenuConstants;
-import static com.android.internal.util.purenexus.PowerMenuConstants.*;
-
-import com.android.internal.widget.LockPatternUtils;
-
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static com.android.internal.util.purenexus.PowerMenuConstants.*;
 
 public class PowerMenuFragment extends PreferenceFragment {
 

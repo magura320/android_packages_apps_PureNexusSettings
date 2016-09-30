@@ -28,7 +28,6 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 
-import com.android.purenexussettings.R;
 import com.android.purenexussettings.preferences.SeekBarPreference;
 
 public class NetworkTrafficFragment extends PreferenceFragment
