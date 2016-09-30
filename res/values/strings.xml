@@ -124,6 +124,9 @@
     <string name="fiswitchtitle">Project Fi Tools</string>
     <string name="fiswitchsummary">Click for useful dial codes</string>
 
+  <!-- Display fragment -->
+    <string name="display_frag_title">Display</string>
+
   <!-- Error strings -->
     <string name="no_browser_error">You cheeky bloke - you need a browser installed for these to work!</string>
     <string name="no_root_error">Root not available?!? Some functions may not work as intended!</string>
@@ -158,11 +161,17 @@
     <string name="keyguard_torch_title">Lockscreen torch</string>
     <string name="keyguard_torch_summary">Longpress power button with screen off turns on torch</string>
 
+  <!-- Misc fragment -->
+    <string name="misc_frag_title">Miscellaneous</string>
+
   <!-- Navdrawer categories -->
     <string name="interface_cat_title">Interface</string>
     <string name="button_cat_title">Buttons</string>
     <string name="system_cat_title">System</string>
     <string name="util_cat_title">Utilities</string>
+
+  <!-- Navbar fragment -->
+    <string name="navbar_frag_title">Navigation bar</string>
 
   <!-- Network traffic fragment -->
     <string name="status_bar_traffic_summary">Network traffic options</string>
