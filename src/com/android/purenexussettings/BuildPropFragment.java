@@ -75,7 +75,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         private BuildPropRecyclerAdapter mAdapter;
         private boolean suAvailable = false;
 
-        public LoadProp setInits(Context context, CoordinatorLayout layout, RecyclerView list, Boolean restore) {
+        LoadProp setInits(Context context, CoordinatorLayout layout, RecyclerView list, Boolean restore) {
             this.context = context;
             mLayout = layout;
             mList = list;
@@ -193,10 +193,10 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     }
 
     private class BuildPropItem extends RecyclerView.ViewHolder implements View.OnClickListener {
-        protected TextView titleText;
-        protected TextView descriptionText;
+        TextView titleText;
+        TextView descriptionText;
 
-        public BuildPropItem(View itemView) {
+        BuildPropItem(View itemView) {
             super(itemView);
             titleText = (TextView) itemView.findViewById(R.id.prop_title);
             descriptionText = (TextView) itemView.findViewById(R.id.prop_desc);
@@ -214,7 +214,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     private class BuildPropRecyclerAdapter extends RecyclerView.Adapter<BuildPropItem> {
         private ArrayList<Map<String, String>> proplist;
 
-        public BuildPropRecyclerAdapter(List<Map<String, String>> data) {
+        BuildPropRecyclerAdapter(List<Map<String, String>> data) {
             proplist = new ArrayList<Map<String, String>>(data);
         }
 
@@ -237,7 +237,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         }
 
         //queues up the removal, addition, and rearranging based on search query
-        public void animateTo(ArrayList<Map<String, String>> models) {
+        void animateTo(ArrayList<Map<String, String>> models) {
             applyAndAnimateRemovals(models);
             applyAndAnimateAdditions(models);
             applyAndAnimateMovedItems(models);
@@ -275,20 +275,20 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         }
 
         // remove item from main list
-        public Map<String, String> removeItem(int position) {
+        Map<String, String> removeItem(int position) {
             Map<String, String> model = proplist.remove(position);
             notifyItemRemoved(position);
             return model;
         }
 
         // add item to main list
-        public void addItem(int position, Map<String, String> model) {
+        void addItem(int position, Map<String, String> model) {
             proplist.add(position, model);
             notifyItemInserted(position);
         }
 
         // move item in main list to match filter list
-        public void moveItem(int fromPosition, int toPosition) {
+        void moveItem(int fromPosition, int toPosition) {
             Map<String, String> model = proplist.remove(fromPosition);
             proplist.add(toPosition, model);
             notifyItemMoved(fromPosition, toPosition);
@@ -299,7 +299,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        return (View) inflater.inflate(R.layout.propeditmain, container, false);
+        return inflater.inflate(R.layout.propeditmain, container, false);
     }
 
     @Override
@@ -398,13 +398,13 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
 
     public BuildPropFragment() {}
 
-    public void setAdapterItems(BuildPropRecyclerAdapter adapter, ArrayList<Map<String, String>> proplist) {
+    private void setAdapterItems(BuildPropRecyclerAdapter adapter, ArrayList<Map<String, String>> proplist) {
         // need these for search functions
         mAdapter = adapter;
         mProplist = proplist;
     }
 
-    public ArrayList<Map<String, String>> buildData(String[] t, List<String> d) {
+    private ArrayList<Map<String, String>> buildData(String[] t, List<String> d) {
         ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
 
         for (int i = 0; i < t.length; ++i) {
@@ -416,7 +416,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         return list;
     }
 
-    public HashMap<String, String> putData(String title, String description) {
+    private HashMap<String, String> putData(String title, String description) {
         HashMap<String, String> item = new HashMap<String, String>();
 
         item.put("title", title);
@@ -425,7 +425,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         return item;
     }
 
-    public void restorefile() {
+    private void restorefile() {
         String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak";
         File file = new File(filepath);
         if (file.exists()) {
@@ -468,9 +468,9 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
             Shell.SH.run("cp -f /system/build.prop " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
             // The below doesn't really seem necessary...
             //Shell.SU.run("chmod 777 " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
-            return (String) Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp";
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp";
         } catch (Exception e) {
-            return (String) "error";
+            return "error";
         }
     }
 }

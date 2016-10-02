@@ -65,7 +65,6 @@
                 android:hint="@string/hex_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:lines="1"
                 android:maxLines="1"
                 android:maxLength="9"/>

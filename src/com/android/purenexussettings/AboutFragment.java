@@ -20,7 +20,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,7 +36,6 @@ import android.widget.TextView;
 
 public class AboutFragment extends Fragment {
 
-    Context context;
     private AlertDialog popUpInfo;
     private int clickCount;
 
@@ -47,7 +45,7 @@ public class AboutFragment extends Fragment {
         myDiag.show(getFragmentManager(), "Diag1");
     }
 
-    public void getThanksDialog() {
+    private void getThanksDialog() {
         MyDialogFragment myDiag = new MyDialogFragment();
         myDiag.setVals(this, false);
         myDiag.show(getFragmentManager(), "Diag2");
@@ -76,7 +74,7 @@ public class AboutFragment extends Fragment {
             View view = getActivity().getLayoutInflater().inflate(R.layout.changelog, null);
             TextView mChangeText = (TextView)view.findViewById(R.id.changetext);
 
-            mChangeText.setText(showStart ? Html.fromHtml(getString(R.string.changelog)) : Html.fromHtml(getString(R.string.credits)));
+            mChangeText.setText(showStart ? Html.fromHtml(getString(R.string.changelog), 0) : Html.fromHtml(getString(R.string.credits), 0));
 
             builder.setView(view);
 
@@ -100,7 +98,6 @@ public class AboutFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.context = getActivity().getApplicationContext();
         this.popUpInfo = null;
         clickCount = 0;
     }

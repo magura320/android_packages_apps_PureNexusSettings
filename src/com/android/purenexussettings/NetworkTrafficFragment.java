@@ -34,7 +34,6 @@ public class NetworkTrafficFragment extends PreferenceFragment
             implements OnPreferenceChangeListener  {
 
     public NetworkTrafficFragment(){}
-    private static final String TAG = "NetworkTrafficSettings";
 
     private static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
     private static final String NETWORK_TRAFFIC_UNIT = "network_traffic_unit";
@@ -149,7 +148,7 @@ public class NetworkTrafficFragment extends PreferenceFragment
             updateNetworkTrafficState(index);
             return true;
         } else if (preference == mNetTrafficUnit) {
-            mNetTrafficVal = setBit(mNetTrafficVal, MASK_UNIT, ((String)newValue).equals("1"));
+            mNetTrafficVal = setBit(mNetTrafficVal, MASK_UNIT, ((String) newValue).equals("1"));
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NETWORK_TRAFFIC_STATE, mNetTrafficVal);
             int index = mNetTrafficUnit.findIndexOfValue((String) newValue);

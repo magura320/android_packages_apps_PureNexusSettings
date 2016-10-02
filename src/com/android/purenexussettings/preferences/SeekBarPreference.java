@@ -96,6 +96,8 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
         catch(Exception e) {
             Log.e(TAG, "Invalid interval value", e);
         }
+
+        typedArray.recycle();
     }
 
     private String getAttributeStringValue(AttributeSet attrs, String namespace, String name, String defaultValue) {
@@ -148,7 +150,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
                 }
                 // remove the existing seekbar (there may not be one) and add ours
                 newContainer.removeAllViews();
-                newContainer.addView(mSeekBar, ViewGroup.LayoutParams.FILL_PARENT,
+                newContainer.addView(mSeekBar, ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
             }
         }
@@ -162,7 +164,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
      * Update a SeekBarPreference view with our current state
      * @param view
      */
-    protected void updateView(View view) {
+    private void updateView(View view) {
 
         try {
             RelativeLayout layout = (RelativeLayout)view;
@@ -212,8 +214,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
 
     @Override
     protected Object onGetDefaultValue(TypedArray ta, int index){
-        int defaultValue = ta.getInt(index, DEFAULT_VALUE);
-        return defaultValue;
+        return ta.getInt(index, DEFAULT_VALUE);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class StatusBarFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.statusbar_fragment);
 
-        mNetTraf = (Preference)findPreference(NETWORKTRAFFRAG);
+        mNetTraf = findPreference(NETWORKTRAFFRAG);
     }
 
     @Override

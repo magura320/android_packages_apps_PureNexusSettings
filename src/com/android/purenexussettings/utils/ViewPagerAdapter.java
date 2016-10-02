@@ -39,7 +39,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment frag = null;
+        Fragment frag;
         String fragname = frags[position];
         try {
             frag = (Fragment)Class.forName(mPackageName + "." + fragname).newInstance();

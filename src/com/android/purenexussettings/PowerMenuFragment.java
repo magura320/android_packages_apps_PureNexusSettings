@@ -57,7 +57,7 @@ public class PowerMenuFragment extends PreferenceFragment {
     private SwitchPreference mBugReportPref;
     private SwitchPreference mSilentPref;
 
-    Context mContext;
+    private Context mContext;
     private ArrayList<String> mLocalUserConfig = new ArrayList<String>();
     private String[] mAvailableActions;
     private String[] mAllActions;

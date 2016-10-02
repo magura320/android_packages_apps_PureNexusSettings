@@ -36,7 +36,7 @@ import android.widget.LinearLayout;
 public class FiSwitchFragment extends Fragment {
     private SharedPreferences prefs;
     private FloatingActionButton fabAdd;
-    static String FI_FAB_ENABLED = "fi_fab_enabled";
+    public final static String FI_FAB_ENABLED = "fi_fab_enabled";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,14 +148,14 @@ public class FiSwitchFragment extends Fragment {
         }
     }
 
-    public void setFabEnabled(boolean enabled) {
+    private void setFabEnabled(boolean enabled) {
         if (fabAdd != null) {
             fabAdd.setVisibility(enabled ? View.VISIBLE: View.GONE);
         }
         prefs.edit().putBoolean(FI_FAB_ENABLED, enabled).apply();
     }
 
-    public boolean isFabEnabled() {
+    private boolean isFabEnabled() {
         return fabAdd != null && prefs.getBoolean(FI_FAB_ENABLED, fabAdd.getVisibility() != View.GONE);
     }
 

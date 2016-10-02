@@ -39,7 +39,7 @@ import java.util.Locale;
 
 public class ColorPickerDialog extends Dialog implements OnColorChangedListener, OnClickListener {
 
-    public static String GLOBAL_COLOR_USER = "global_color_user";
+    public final static String GLOBAL_COLOR_USER = "global_color_user";
 
     private ColorPickerView mColorPicker;
 
@@ -57,7 +57,7 @@ public class ColorPickerDialog extends Dialog implements OnColorChangedListener,
     private OnColorChangedListener mListener;
 
     public interface OnColorChangedListener {
-        public void onColorChanged(int color);
+        void onColorChanged(int color);
     }
 
     public ColorPickerDialog(Context context, int initialColor, int defaultColor, String initKey, String itemTitle) {
@@ -92,7 +92,7 @@ public class ColorPickerDialog extends Dialog implements OnColorChangedListener,
         TextView mTitleText = (TextView) layout.findViewById(R.id.colorpick_title);
         mTitleText.setText(itemTitle);
 
-        mUserBorder = getContext().getResources().getColor(R.color.userpanel_border);
+        mUserBorder = getContext().getResources().getColor(R.color.userpanel_border, null);
 
         ColorPickerPanelView mUserSet1 = (ColorPickerPanelView) layout.findViewById(R.id.userset1_panel);
         ColorPickerPanelView mUserSet2 = (ColorPickerPanelView) layout.findViewById(R.id.userset2_panel);
@@ -113,12 +113,12 @@ public class ColorPickerDialog extends Dialog implements OnColorChangedListener,
         mOldColor.setColor(color);
         mColorPicker.setColor(color, true);
 
-        setColorAndClickActionCustom(mUserSet1, "user1", getContext().getResources().getColor(R.color.userpanel_default1));
-        setColorAndClickActionCustom(mUserSet2, "user2", getContext().getResources().getColor(R.color.userpanel_default2));
-        setColorAndClickActionCustom(mUserSet3, "user3", getContext().getResources().getColor(R.color.userpanel_default3));
-        setColorAndClickActionCustom(mUserSet4, "user4", getContext().getResources().getColor(R.color.userpanel_default4));
-        setColorAndClickActionCustom(mUserSet5, "user5", getContext().getResources().getColor(R.color.userpanel_default5));
-        setColorAndClickActionCustom(mUserSet6, "user6", getContext().getResources().getColor(R.color.userpanel_default6));
+        setColorAndClickActionCustom(mUserSet1, "user1", getContext().getResources().getColor(R.color.userpanel_default1, null));
+        setColorAndClickActionCustom(mUserSet2, "user2", getContext().getResources().getColor(R.color.userpanel_default2, null));
+        setColorAndClickActionCustom(mUserSet3, "user3", getContext().getResources().getColor(R.color.userpanel_default3, null));
+        setColorAndClickActionCustom(mUserSet4, "user4", getContext().getResources().getColor(R.color.userpanel_default4, null));
+        setColorAndClickActionCustom(mUserSet5, "user5", getContext().getResources().getColor(R.color.userpanel_default5, null));
+        setColorAndClickActionCustom(mUserSet6, "user6", getContext().getResources().getColor(R.color.userpanel_default6, null));
 
 
         if (mHex != null) {
@@ -194,7 +194,7 @@ public class ColorPickerDialog extends Dialog implements OnColorChangedListener,
     }
 
 /* Maybe add in a pass for xml resource default color when method is called to pass through to default for setColor... */
-    public void setColorAndClickActionCustom(final ColorPickerPanelView previewRect, final String extraKey, final int color) {
+    private void setColorAndClickActionCustom(final ColorPickerPanelView previewRect, final String extraKey, final int color) {
         if (previewRect != null) {
             final String customKey = (Settings.Global.getInt(getContext().getContentResolver(), GLOBAL_COLOR_USER, 0) == 0) ? "globalcolor" : mKey;
             previewRect.setColor(Settings.Global.getInt(getContext().getContentResolver(), customKey + "_" + extraKey, color));

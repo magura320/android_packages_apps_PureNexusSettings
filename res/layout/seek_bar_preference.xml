@@ -4,14 +4,14 @@
     android:id="@android:id/widget_frame"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="14dp"
+    android:paddingStart="14dp"
     android:paddingTop="5dp"
-    android:paddingRight="12dp"
+    android:paddingEnd="12dp"
     android:paddingBottom="5dp"
     >
 
     <TextView android:id="@android:id/title"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             android:textColor="?android:attr/textColorPrimary" />
 
     <TextView android:id="@android:id/summary"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@android:id/title"
@@ -33,7 +33,7 @@
 
             <TextView android:id="@+id/seekBarPrefUnitsRight"
                     android:layout_centerInParent="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -42,22 +42,23 @@
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/seekBarPrefUnitsRight"
-                    android:gravity="right"
-                    android:paddingRight="5dp"
+                    android:layout_toStartOf="@id/seekBarPrefUnitsRight"
+                    android:gravity="end"
+                    android:paddingEnd="5dp"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView android:id="@+id/seekBarPrefUnitsLeft"
                     android:layout_centerInParent="true"
-                    android:layout_toLeftOf="@id/seekBarPrefValue"
+                    android:layout_toStartOf="@id/seekBarPrefValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <LinearLayout android:id="@+id/seekBarPrefBarContainer"
+                    android:orientation="horizontal"
                     android:layout_centerInParent="true"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/seekBarPrefUnitsLeft" />
+                    android:layout_toStartOf="@id/seekBarPrefUnitsLeft" />
     </RelativeLayout>
 </RelativeLayout>

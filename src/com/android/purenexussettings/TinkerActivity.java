@@ -29,6 +29,7 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
@@ -102,7 +103,7 @@ public class TinkerActivity extends AppCompatActivity {
     public static String mEditKey;
 
     // For handling quick back/About presses
-    Handler myHandler = new Handler();
+    private Handler myHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +167,7 @@ public class TinkerActivity extends AppCompatActivity {
                 total += navMenuCatCounts[j];
                 // format submenu headings
                 SpannableString strcat= new SpannableString(navMenuCats[j]);
-                strcat.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.alphawhite)), 0, strcat.length(),0);
+                strcat.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.alphawhite, null)), 0, strcat.length(),0);
                 strcat.setSpan(new RelativeSizeSpan(0.85f), 0, strcat.length(), 0);
                 strcat.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, strcat.length(), 0);
                 // is the 10 * (j + 1) bit needed...? Maybe not... meh
@@ -177,7 +178,7 @@ public class TinkerActivity extends AppCompatActivity {
             if (total > 0) {
                 // format menu item title
                 SpannableString stritem= new SpannableString(navMenuTitles[i]);
-                stritem.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.alphawhite)), 0, stritem.length(),0);
+                stritem.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.alphawhite, null)), 0, stritem.length(),0);
                 // group id is j, i is item id and order..., then title - includes logic for conditional entries
                 if ( cLockInstalled || !(navMenuTitles[i].equals("cLock")) ) {
                     // an attempt to add icon if included...
@@ -195,7 +196,7 @@ public class TinkerActivity extends AppCompatActivity {
 
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // check for external app launching navdrawer items
                 if ( navMenuTitles[item.getItemId()].equals("cLock") ) {
                     mIgnore = true;
@@ -220,8 +221,10 @@ public class TinkerActivity extends AppCompatActivity {
         navMenuIcons.recycle();
 
         // enabling action bar app icon and behaving it as toggle button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 toolbar, //nav menu toggle icon
@@ -266,7 +269,7 @@ public class TinkerActivity extends AppCompatActivity {
 
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         fragmentManager = getFragmentManager();
 
@@ -304,7 +307,7 @@ public class TinkerActivity extends AppCompatActivity {
         boolean mKeepStack = checkPosition(position);
 
         // update the main content by replacing fragments
-        Fragment frags = null;
+        Fragment frags;
         String fragname = navMenuFrags[position];
         try {
             frags = (Fragment)Class.forName(mPackageName + "." + fragname).newInstance();
@@ -319,7 +322,7 @@ public class TinkerActivity extends AppCompatActivity {
             try {
                 FragmentTransaction fragtrans = fragmentManager.beginTransaction();
                 if (mFromClick || mMenu || mBackPress) {
-                    fragtrans.setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout);
+                    fragtrans.setCustomAnimations(R.animator.fadein, R.animator.fadeout, R.animator.fadein, R.animator.fadeout);
                 }
                 fragtrans.add(R.id.frame_container, frags);
                 // The backstack should be cleared if not coming from a fragment flagged as stack keeping or from a backpress
@@ -360,7 +363,7 @@ public class TinkerActivity extends AppCompatActivity {
     private void removeCurrent() {
         // update the main content by replacing fragments, first by removing the old
         FragmentTransaction fragtrans = fragmentManager.beginTransaction();
-        fragtrans.setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout);
+        fragtrans.setCustomAnimations(R.animator.fadein, R.animator.fadeout, R.animator.fadein, R.animator.fadeout);
         fragtrans.remove(fragmentManager.findFragmentById(R.id.frame_container));
         fragtrans.commit();
     }
@@ -547,7 +550,7 @@ public class TinkerActivity extends AppCompatActivity {
     }
 
     /* Methods related to showing/hiding app from app drawer */
-    public void setLauncherIconEnabled(boolean enabled) {
+    private void setLauncherIconEnabled(boolean enabled) {
         int newState;
         PackageManager packman = getPackageManager();
         if (enabled) {
@@ -558,7 +561,7 @@ public class TinkerActivity extends AppCompatActivity {
         packman.setComponentEnabledSetting(new ComponentName(this, LauncherActivity.class), newState, PackageManager.DONT_KILL_APP);
     }
 
-    public boolean isLauncherIconEnabled() {
+    private boolean isLauncherIconEnabled() {
         PackageManager packman = getPackageManager();
         return (packman.getComponentEnabledSetting(new ComponentName(this, LauncherActivity.class)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
     }

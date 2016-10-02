@@ -105,7 +105,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         basefrag = frag;
     }
 
-    protected TextView createDefaultTabView(Context context) {
+    private TextView createDefaultTabView(Context context) {
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, getResources().getInteger(R.integer.slidetab_view_text_size_sp));
@@ -187,7 +187,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         }
     }
 
-    public void storePosition() {
+    private void storePosition() {
 // Left here for example - needs to be specific to each instance of slidetab
 //        if (basefrag instanceof Fragname) {
 //            TinkerActivity.LAST_FRAGNAME_TAB = mViewPager.getCurrentItem();

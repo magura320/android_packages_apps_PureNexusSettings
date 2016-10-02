@@ -43,9 +43,9 @@ public class DeviceFragment extends PreferenceFragment {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.device_fragment);
 
-        Preference mRadioInfo = (Preference)findPreference(RADIO_INFO);
-        mBuildProp = (Preference)findPreference(BUILDPROPEDITOR);
-        mFiSwitch = (Preference)findPreference(FISWITCH);
+        Preference mRadioInfo = findPreference(RADIO_INFO);
+        mBuildProp = findPreference(BUILDPROPEDITOR);
+        mFiSwitch = findPreference(FISWITCH);
 
         PreferenceScreen prefScreen = getPreferenceScreen();
 

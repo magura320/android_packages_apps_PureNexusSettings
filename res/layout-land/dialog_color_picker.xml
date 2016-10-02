@@ -79,7 +79,6 @@
                     android:imeOptions="flagNoExtractUi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:singleLine="true"
                     android:lines="1"
                     android:maxLines="1"
                     android:maxLength="9" />
