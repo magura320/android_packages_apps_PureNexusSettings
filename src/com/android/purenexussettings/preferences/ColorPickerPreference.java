@@ -46,9 +46,9 @@ import java.util.Locale;
 
 public class ColorPickerPreference extends Preference implements OnPreferenceClickListener, OnColorChangedListener {
 
-    View mView;
-    ColorPickerDialog mDialog;
-    LinearLayout widgetFrameView;
+    private View mView;
+    private ColorPickerDialog mDialog;
+    private LinearLayout widgetFrameView;
     private int mValue = Color.BLACK;
     private float mDensity = 1f;
     private boolean mAlphaSliderEnabled = false;
@@ -142,7 +142,6 @@ public class ColorPickerPreference extends Preference implements OnPreferenceCli
             return;
 
         ImageView iView = new ImageView(getContext());
-        LinearLayout widgetFrameView = ((LinearLayout) mView.findViewById(android.R.id.widget_frame));
         if (widgetFrameView == null) return;
 
         widgetFrameView.setVisibility(View.VISIBLE);
@@ -167,12 +166,7 @@ public class ColorPickerPreference extends Preference implements OnPreferenceCli
         widgetFrameView.addView(iView);
         widgetFrameView.setMinimumWidth(0);
 
-        if (apicheck < Build.VERSION_CODES.JELLY_BEAN) {
-            iView.setBackgroundDrawable(new AlphaPatternDrawable((int) (5 * mDensity), getContext()));
-        } else {
-            iView.setBackground(new AlphaPatternDrawable((int) (5 * mDensity), getContext()));
-        }
-
+        iView.setBackground(new AlphaPatternDrawable((int) (5 * mDensity), getContext()));
         iView.setImageBitmap(getPreviewBitmap(enable));
     }
 
@@ -230,7 +224,7 @@ public class ColorPickerPreference extends Preference implements OnPreferenceCli
         return false;
     }
 
-    protected void showDialog(Bundle state) {
+    private void showDialog(Bundle state) {
         if (mDialog == null || !mDialog.isShowing()) {
             // force orientation to stay while dialog is open
             TinkerActivity.lockCurrentOrientation((TinkerActivity) getContext());

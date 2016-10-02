@@ -58,7 +58,7 @@ public final class Utils {
     public static boolean isWifiOnly(Context context) {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
-        return (cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE) == false);
+        return !cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE);
     }
 
     public static boolean hasMultipleUsers(Context context) {
@@ -155,7 +155,7 @@ public final class Utils {
     public static void lockCurrentOrientation(Activity activity) {
         int currentRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         int orientation = activity.getResources().getConfiguration().orientation;
-        int frozenRotation = 0;
+        int frozenRotation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
         switch (currentRotation) {
             case Surface.ROTATION_0:
                 frozenRotation = orientation == Configuration.ORIENTATION_LANDSCAPE

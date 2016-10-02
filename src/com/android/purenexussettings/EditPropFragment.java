@@ -26,7 +26,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -45,8 +44,7 @@ public class EditPropFragment extends Fragment {
     public static boolean isProcessingError;
     private EditText editName;
     private EditText editKey;
-    private CoordinatorLayout mCoordLayout;
-    protected boolean changesPending;
+    private boolean changesPending;
     private String origName;
     private AlertDialog unsavedChangesDialog;
     private AlertDialog deleteItemDialog;
@@ -59,7 +57,7 @@ public class EditPropFragment extends Fragment {
         private String mNewKey;
         private boolean mTryCatchFail;
 
-        public ProcessEdits setInits(Context context, String origname, String newname, String newkey) {
+        ProcessEdits setInits(Context context, String origname, String newname, String newkey) {
             this.context = context;
             mOrigName = origname == null ? origname : origname.replaceAll(" ", "_");
             mNewName = newname == null ? newname : newname.replaceAll(" ", "_");
@@ -118,8 +116,6 @@ public class EditPropFragment extends Fragment {
         editName = (EditText)v.findViewById(R.id.prop_name);
         editKey = (EditText)v.findViewById(R.id.prop_key);
 
-        mCoordLayout = (CoordinatorLayout)v.findViewById(R.id.editlayoutcoord);
-
         origName = TinkerActivity.mEditName;
         String key = TinkerActivity.mEditKey;
 
@@ -176,7 +172,7 @@ public class EditPropFragment extends Fragment {
                 if (editName.getText().toString().equals("")) {
                     deleteitem();
                 } else {
-                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     (new ProcessEdits()).setInits(getActivity(), origName, editName.getText().toString(), editKey.getText().toString()).execute();
                 }
             }
@@ -203,7 +199,7 @@ public class EditPropFragment extends Fragment {
 
     public EditPropFragment() {}
 
-    public void canceledit() {
+    private void canceledit() {
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (changesPending) {
             unsavedChangesDialog = new AlertDialog.Builder(getActivity())
@@ -243,7 +239,7 @@ public class EditPropFragment extends Fragment {
         }
     }
 
-    public void deleteitem() {
+    private void deleteitem() {
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         deleteItemDialog = new AlertDialog.Builder(getActivity())
             .setTitle(R.string.editprop_delete_item_title)
@@ -266,7 +262,7 @@ public class EditPropFragment extends Fragment {
         deleteItemDialog.show();
     }
 
-    public void transferFileToSystem() {
+    private void transferFileToSystem() {
         String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
         try {
             Shell.SU.run("mount -o remount,rw  /system");
@@ -278,7 +274,7 @@ public class EditPropFragment extends Fragment {
         }
     }
 
-    public void editfile(String origkey, String key, String value) {
+    private void editfile(String origkey, String key, String value) {
         if (key == null && value == null && origkey != null) {
             Shell.SH.run("sed -i /" + origkey + "=/d " + Environment.getExternalStorageDirectory().getAbsolutePath() + "/buildprop.tmp");
         } else if (origkey == null) {

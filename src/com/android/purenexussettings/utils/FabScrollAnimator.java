@@ -32,10 +32,10 @@ public class FabScrollAnimator extends FloatingActionButton.Behavior {
 
     private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
     private boolean mIsAnimatingOut = false;
-    Handler myHandler = new Handler();
+    private Handler myHandler = new Handler();
 
     public FabScrollAnimator(Context context, AttributeSet attrs) {
-        super();
+        super(context, attrs);
     }
 
     @Override

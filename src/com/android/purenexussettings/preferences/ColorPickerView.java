@@ -111,7 +111,7 @@ public class ColorPickerView extends View {
     private int OrigColor;
 
     public interface OnColorChangedListener {
-        public void onColorChanged(int color);
+        void onColorChanged(int color);
     }
 
     public ColorPickerView(Context context){
@@ -594,8 +594,8 @@ public class ColorPickerView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = 0;
-        int height = 0;
+        int width;
+        int height;
 
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
@@ -800,7 +800,7 @@ public class ColorPickerView extends View {
             mValShader = null;
             mSatShader = null;
             mHueShader = null;
-            mAlphaShader = null;;
+            mAlphaShader = null;
 
             requestLayout();
         }
