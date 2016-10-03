@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,54 +39,53 @@ public class AboutFragment extends Fragment {
 
     private AlertDialog popUpInfo;
     private int clickCount;
-
-    private void getStartDialog() {
-        MyDialogFragment myDiag = new MyDialogFragment();
-        myDiag.setVals(this, true);
-        myDiag.show(getFragmentManager(), "Diag1");
-    }
-
-    private void getThanksDialog() {
-        MyDialogFragment myDiag = new MyDialogFragment();
-        myDiag.setVals(this, false);
-        myDiag.show(getFragmentManager(), "Diag2");
-    }
+    final private static String DIAGTYPE = "diagType";
+    final private static int DIAG_CHANGE = 0;
+    final private static int DIAG_THANKS = 1;
 
     public AboutFragment() {
     }
 
     public static class MyDialogFragment extends DialogFragment
     {
-        private boolean showStart;
-        private Fragment fragBase;
-
         public MyDialogFragment() {}
-
-        public void setVals(Fragment orig, boolean isStart) {
-            showStart = isStart;
-            fragBase = orig;
-        }
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState)
         {
+            final int diagType = getArguments().getInt(DIAGTYPE);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
             View view = getActivity().getLayoutInflater().inflate(R.layout.changelog, null);
             TextView mChangeText = (TextView)view.findViewById(R.id.changetext);
 
-            mChangeText.setText(showStart ? Html.fromHtml(getString(R.string.changelog), 0) : Html.fromHtml(getString(R.string.credits), 0));
+            Spanned contentText;
+            String titleText;
+            switch (diagType) {
+                case DIAG_THANKS:
+                    contentText = Html.fromHtml(getString(R.string.credits), 0);
+                    titleText = getString(R.string.setnegative);
+                    break;
+                case DIAG_CHANGE:
+                default:
+                    contentText = Html.fromHtml(getString(R.string.changelog), 0);
+                    titleText = getString(R.string.alertdiagtitle);
+            }
 
+            mChangeText.setText(contentText);
+            builder.setTitle(titleText);
             builder.setView(view);
-
-            builder.setTitle(showStart ? getString(R.string.alertdiagtitle) : getString(R.string.setnegative));
-
             builder.setPositiveButton(getString(R.string.setpositive), null);
 
-            if (showStart) {
+            if (diagType == DIAG_CHANGE) {
                 builder.setNegativeButton(getString(R.string.setnegative), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ((AboutFragment)fragBase).getThanksDialog();
+                        MyDialogFragment myDiag = new MyDialogFragment();
+                        Bundle diagType = new Bundle();
+                        diagType.putInt(DIAGTYPE, DIAG_THANKS);
+                        myDiag.setArguments(diagType);
+                        myDiag.show(getFragmentManager(), "Credits");
                     }
                 });
             }
@@ -126,7 +126,11 @@ public class AboutFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (popUpInfo == null || !popUpInfo.isShowing()) {
-                    getStartDialog();
+                    MyDialogFragment myDiag = new MyDialogFragment();
+                    Bundle diagType = new Bundle();
+                    diagType.putInt(DIAGTYPE, DIAG_CHANGE);
+                    myDiag.setArguments(diagType);
+                    myDiag.show(getFragmentManager(), "Changelog");
                     logo.setClickable(true);
                 }
             }
@@ -138,9 +142,9 @@ public class AboutFragment extends Fragment {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 Uri url = Uri.parse(getString(R.string.pushbullet_data));
                 link.setData(url);
-                try {
+                if (TinkerActivity.checkIntent(getContext(), link)) {
                     startActivity(link);
-                } catch (android.content.ActivityNotFoundException e) {
+                } else {
                     noBrowserSnack(v);
                 }
             }
@@ -152,9 +156,9 @@ public class AboutFragment extends Fragment {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 Uri url = Uri.parse(getString(R.string.gplus_data));
                 link.setData(url);
-                try {
+                if (TinkerActivity.checkIntent(getContext(), link)) {
                     startActivity(link);
-                } catch (android.content.ActivityNotFoundException e) {
+                } else {
                     noBrowserSnack(v);
                 }
             }
@@ -166,9 +170,9 @@ public class AboutFragment extends Fragment {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 Uri url = Uri.parse(getString(R.string.twit_data));
                 link.setData(url);
-                try {
+                if (TinkerActivity.checkIntent(getContext(), link)) {
                     startActivity(link);
-                } catch (android.content.ActivityNotFoundException e) {
+                } else {
                     noBrowserSnack(v);
                 }
             }
@@ -180,9 +184,9 @@ public class AboutFragment extends Fragment {
                 Intent link = new Intent(Intent.ACTION_VIEW);
                 Uri url = Uri.parse(getString(R.string.payp_data));
                 link.setData(url);
-                try {
+                if (TinkerActivity.checkIntent(getContext(), link)) {
                     startActivity(link);
-                } catch (android.content.ActivityNotFoundException e) {
+                } else {
                     noBrowserSnack(v);
                 }
             }
