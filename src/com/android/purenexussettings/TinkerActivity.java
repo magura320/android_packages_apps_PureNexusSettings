@@ -316,8 +316,10 @@ public class TinkerActivity extends AppCompatActivity {
             frags = null;
             }
         if (frags != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(true);
+            }
 
             try {
                 FragmentTransaction fragtrans = fragmentManager.beginTransaction();
@@ -531,7 +533,9 @@ public class TinkerActivity extends AppCompatActivity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(mTitle);
+        }
     }
 
     /* When using the mDrawerToggle, you must call it during onPostCreate() and onConfigurationChanged()... */
