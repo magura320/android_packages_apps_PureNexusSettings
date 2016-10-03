@@ -226,6 +226,8 @@
 
   <!-- Notification drawer fragment -->
     <string name="notifdraw_frag_title">Notification drawer</string>
+    <string name="notification_panel_title">Notification panel</string>
+    <string name="qs_panel_title">Quick settings panel</string>
     <!-- Quick pull down-->
     <string name="quick_pulldown_title">Quick pulldown</string>
     <string name="quick_pulldown_summary">%1$s edge of the status bar pulls down Quick Settings</string>
@@ -245,6 +247,9 @@
     <!-- force expand notifications -->
     <string name="notification_force_expand_title">Force expanded notifications</string>
     <string name="notification_force_expand_summary">Auto expands notifications on apps that support it</string>
+
+  <!-- Notification fragment -->
+    <string name="notif_frag_title">Media &amp; notifications</string>
 
   <!-- powermenu fragment -->
     <string name="powermenu_frag_title">PowerMenu</string>
