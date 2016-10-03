@@ -155,6 +155,9 @@
     <!-- wake on plug/unplug -->
     <string name="wake_when_plugged_or_unplugged_title">Wake on plug</string>
     <string name="wake_when_plugged_or_unplugged_summary">Turn the screen on when connecting or disconnecting a power source</string>
+    <!-- color tuner options -->
+    <string name="display_color_title">Screen color &amp; appearance</string>
+    <string name="display_color_summary">screen color controls and night mode</string>
 
   <!-- Error strings -->
     <string name="no_browser_error">You cheeky bloke - you need a browser installed for these to work!</string>
@@ -201,6 +204,12 @@
 
   <!-- Navbar fragment -->
     <string name="navbar_frag_title">Navigation bar</string>
+    <!-- Navbar tuner -->
+    <string name="navbar_tuner_title">Navbar tuner</string>
+    <string name="navbar_tuner_summary">Customize buttons and layout</string>
+    <!-- multiwindow navbar gesture -->
+    <string name="nav_gesture_title">Enable multiwindow swipe-up gesture</string>
+    <string name="nav_gesture_summary">Gesture to enter multiwindow by swiping up from the recents button</string>
 
   <!-- Network traffic fragment -->
     <string name="status_bar_traffic_summary">Network traffic options</string>
@@ -247,9 +256,15 @@
     <!-- force expand notifications -->
     <string name="notification_force_expand_title">Force expanded notifications</string>
     <string name="notification_force_expand_summary">Auto expands notifications on apps that support it</string>
+    <!-- qs brightness slider -->
+    <string name="qs_brightness_slider_title">Brightness slider</string>
+    <string name="qs_brightness_slider_summary">Show brightness slider on quick settings panel</string>
 
   <!-- Notification fragment -->
     <string name="notif_frag_title">Media &amp; notifications</string>
+    <!-- Power notification controls -->
+    <string name="power_notification_title">Power notification controls</string>
+    <string name="power_notification_summary">Advanced notification controls and information</string>
 
   <!-- powermenu fragment -->
     <string name="powermenu_frag_title">PowerMenu</string>
@@ -274,12 +289,18 @@
 
   <!-- statusbar fragment -->
     <string name="statusbar_frag_title">Status bar</string>
+    <!-- Preference to show/hide embedded battery percentage -->
+    <string name="show_battery_percentage">Show battery percentage</string>
+    <string name="show_battery_percentage_summary">Show battery percentage when not charging</string>
     <!-- double tap to sleep - statusbar -->
     <string name="double_tap_to_sleep_title">Double-tap to sleep</string>
     <string name="double_tap_to_sleep_summary">Double tap on the status bar to put the device to sleep</string>
     <!-- statusbar brightness control -->
     <string name="status_bar_toggle_brightness">Brightness control</string>
     <string name="status_bar_toggle_brightness_summary">Adjust brightness by sliding across the status bar</string>
+    <!-- statusbar icon blacklist -->
+    <string name="status_bar_icon_blacklist_title">Status bar icons</string>
+    <string name="status_bar_icon_blacklist_summary">Configure what icons are shown on status bar</string>
     <!-- statusbar notification count -->
     <string name="status_bar_notif_count_title">Show notification count</string>
     <string name="status_bar_notif_count_summary">Display the number of pending notifications</string>
@@ -315,4 +336,13 @@
     <!-- Volume key orientation swap -->
     <string name="swap_volume_buttons_title">Volume button swap</string>
     <string name="swap_volume_buttons_summary">Adjust volume buttons action based on current orientation</string>
+    <!-- Volume down enter do not disturb -->
+    <string name="volbtn_down_zen_title">Volume down for do not disturb</string>
+    <string name="volbtn_down_zen_summary">allow volume down to enter do not disturb mode</string>
+    <!-- Volume up exit do not disturb -->
+    <string name="volbtn_up_zen_title">Volume up in do not disturb</string>
+    <string name="volbtn_up_zen_summary">allow volume up to exit do not disturb mode</string>
+    <!-- Volume do not disturb switch -->
+    <string name="vol_zen_title">Do not disturb switch</string>
+    <string name="vol_zen_summary">Show do not disturb swith on volume panel</string>
 </resources>
