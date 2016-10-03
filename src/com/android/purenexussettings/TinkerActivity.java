@@ -21,6 +21,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
@@ -416,6 +417,10 @@ public class TinkerActivity extends AppCompatActivity {
         } else {
             Snackbar.make(findViewById(R.id.frame_container), getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
         }
+    }
+
+    public static boolean checkIntent(Context context, Intent intent) {
+        return context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
     }
 
     public void launchcLock() {
