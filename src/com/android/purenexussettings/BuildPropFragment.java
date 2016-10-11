@@ -430,11 +430,11 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         File file = new File(filepath);
         if (file.exists()) {
             try {
-                Shell.SU.run("mount -o remount,rw  /system");
+                Shell.SU.run("mount -o rw,remount -t auto /system");
                 Shell.SU.run("mv -f /system/build.prop " + filepath + ".tmp");
                 Shell.SU.run("mv -f " + filepath +" /system/build.prop");
                 Shell.SU.run("chmod 644 /system/build.prop");
-                Shell.SU.run("mount -o remount,ro  /system");
+                Shell.SU.run("mount -o ro,remount -t auto /system");
             } catch (Exception e) {
                 Snackbar.make(mCoordLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
             }
