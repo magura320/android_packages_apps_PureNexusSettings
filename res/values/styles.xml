@@ -14,10 +14,9 @@
      limitations under the License.
 -->
 <resources>
-
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
+    <!--style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <- Customize your theme here. ->
         <item name="colorPrimary">@color/action_bar_color</item>
         <item name="colorPrimaryDark">@color/statbar</item>
         <item name="colorAccent">@color/col_accnt</item>
@@ -26,17 +25,118 @@
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style-->
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:background">@color/transp</item>
+        <item name="colorPrimary">@color/action_bar_color</item>
+        <item name="colorPrimaryDark">@color/statbar</item>
+        <item name="colorAccent">@color/col_accnt</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Custom items for theme switching -->
+        <item name="CustomBG">@color/main_bg</item>
+        <item name="CustomCardTitle">@color/cardview_pref_title</item>
+        <item name="card_bg">@color/cardlayout_bg</item>
+        <item name="card_diag_bg">@color/cardlayout_diag_bg</item>
+        <item name="actionbar_bg">@color/action_bar_color</item>
+        <item name="CustomActionBarTheme">@style/ToolbarCustomIconColor</item>
+        <item name="CustomPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogDark</item>
+        <item name="android:dialogTheme">@style/AlertDialogDark</item>
+        <item name="headerBG">@color/header</item>
+        <item name="listBG">@drawable/nav_item_bg</item>
+    </style>
+
+    <style name="AppThemeBlack" parent="Theme.AppCompat">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:background">@color/transp</item>
+        <item name="colorPrimary">@color/action_bar_color_b</item>
+        <item name="colorPrimaryDark">@color/statbar_b</item>
+        <item name="colorAccent">@color/col_accnt_b</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Custom items for theme switching -->
+        <item name="CustomBG">@color/main_bg_b</item>
+        <item name="CustomCardTitle">@color/cardview_pref_title_b</item>
+        <item name="card_bg">@color/cardlayout_bg_b</item>
+        <item name="card_diag_bg">@color/cardlayout_diag_bg_b</item>
+        <item name="actionbar_bg">@color/action_bar_color_b</item>
+        <item name="CustomActionBarTheme">@style/ToolbarCustomIconColor</item>
+        <item name="CustomPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogBlack</item>
+        <item name="android:dialogTheme">@style/AlertDialogBlack</item>
+        <item name="headerBG">@color/header_b</item>
+        <item name="listBG">@drawable/nav_item_bg_b</item>
+    </style>
+
+    <!-- light -->
+    <style name="AppThemeLight" parent="Theme.AppCompat.Light">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:background">@color/transp</item>
+        <item name="colorPrimary">@color/action_bar_color_light</item>
+        <item name="colorPrimaryDark">@color/statbar_light</item>
+        <item name="colorAccent">@color/col_accnt_light</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Custom items for theme switching -->
+        <item name="CustomBG">@color/main_bg_light</item>
+        <item name="CustomCardTitle">@color/cardview_pref_title_light</item>
+        <item name="card_bg">@color/cardlayout_bg_light</item>
+        <item name="card_diag_bg">@color/cardlayout_diag_bg_light</item>
+        <item name="actionbar_bg">@color/action_bar_color_light</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogLight</item>
+        <item name="android:dialogTheme">@style/AlertDialogLight</item>
+        <item name="CustomActionBarTheme">@style/ToolbarCustomIconColorLight</item>
+        <item name="CustomPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="headerBG">@color/header_light</item>
+        <item name="listBG">@drawable/nav_item_bg_light</item>
+    </style>
+
+    <!-- Customize some History alertdialog things per theme -->
+    <style name="AlertDialogDark" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:colorAccent">@color/cardview_pref_title</item>
+        <item name="android:background">@color/main_bg</item>
+    </style>
+
+    <style name="AlertDialogBlack" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:colorAccent">@color/cardview_pref_title_b</item>
+        <item name="android:background">@color/main_bg_b</item>
+    </style>
+
+    <style name="AlertDialogLight" parent="android:Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/cardview_pref_title_light</item>
+        <item name="android:background">@color/main_bg_light</item>
+    </style>
+
+    <!--style name="ToolbarCustomIconColor" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!- android:textColorSecondary is used for coloring the navigation drawer icon and up arrow. ->
+        <item name="android:textColorSecondary">@color/widget_title_text_color</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style-->
+
+    <!-- Light and dark actionbar theme bits -->
+    <style name="ToolbarCustomIconColor" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- android:textColorSecondary is used for coloring the navigation drawer icon and up arrow when using navdrawer -->
+        <item name="android:textColorSecondary">@color/cardview_pref_title</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="ToolbarCustomIconColorLight" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorSecondary">@color/cardview_pref_title_light</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- Force actionbar toolbar text size to stay same regardless of orientation -->
+    <style name="ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="NavView">
         <item name="android:textSize">14sp</item>
         <item name="android:listPreferredItemHeightSmall">35dp</item>
-    </style>
-
-    <style name="ToolbarCustomIconColor" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!-- android:textColorSecondary is used for coloring the navigation drawer icon and up arrow. -->
-        <item name="android:textColorSecondary">@color/widget_title_text_color</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 </resources>

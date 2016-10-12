@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             pure:cardUseCompatPadding="true"
             pure:cardElevation="@dimen/cardview_elevate"
-            pure:cardBackgroundColor="@color/cardlayout_bg"
+            pure:cardBackgroundColor="?attr/card_bg"
             pure:cardCornerRadius="@dimen/cardview_rounding">
 
             <LinearLayout
@@ -47,7 +47,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/editprop_name"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="?attr/CustomCardTitle" />
 
                 <EditText
                     android:id="@+id/prop_name"
@@ -65,7 +66,7 @@
             android:layout_height="wrap_content"
             pure:cardUseCompatPadding="true"
             pure:cardElevation="@dimen/cardview_elevate"
-            pure:cardBackgroundColor="@color/cardlayout_bg"
+            pure:cardBackgroundColor="?attr/card_bg"
             pure:cardCornerRadius="@dimen/cardview_rounding">
 
             <LinearLayout
@@ -80,7 +81,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/editprop_key"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="?attr/CustomCardTitle" />
 
                 <EditText
                     android:id="@+id/prop_key"

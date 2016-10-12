@@ -27,13 +27,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar"/>
+    <!-- pull in some custom attr bits for theme change capability -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/actionbar_bg"
+        android:theme="?attr/CustomActionBarTheme"
+        android:popupTheme="?attr/CustomPopupTheme"
+        pure:titleTextAppearance="@style/ToolbarTitle"/>
 
     <!-- Framelayout to display Fragments -->
     <FrameLayout
       android:id="@+id/frame_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      android:layout_height="match_parent"
+      android:background="?attr/CustomBG"/>
 
   </LinearLayout>
 
@@ -42,9 +51,10 @@
       android:layout_height="match_parent"
       android:layout_width="wrap_content"
       android:layout_gravity="start"
+      android:background="?attr/CustomBG"
+      pure:itemBackground="?attr/listBG"
       pure:theme="@style/NavView"
       pure:headerLayout="@layout/drawer_header"
       pure:menu="@menu/menu_tinker" />
-
 
 </android.support.v4.widget.DrawerLayout>

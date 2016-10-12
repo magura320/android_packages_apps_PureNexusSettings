@@ -15,6 +15,15 @@
 -->
 
 <resources>
+    <attr name="card_bg" format="color" />
+    <attr name="card_diag_bg" format="color" />
+    <attr name="actionbar_bg" format="color" />
+    <attr name="CustomActionBarTheme" format="reference" />
+    <attr name="CustomPopupTheme" format="reference" />
+    <attr name="CustomBG" format="color" />
+    <attr name="CustomCardTitle" format="color" />
+    <attr name="headerBG" format="color" />
+    <attr name="listBG" format="reference" />
     <declare-styleable name="ColorPickPref">
         <attr name="alphaSlider" format="boolean" />
         <attr name="alphaText" format="boolean" />

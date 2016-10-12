@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/changelog_txt_size"
+            android:textColor="?attr/CustomCardTitle"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:paddingTop="15dp"
