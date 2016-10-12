@@ -20,12 +20,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -34,11 +35,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.purenexussettings.utils.ThemeSwitch;
+
 
 public class AboutFragment extends Fragment {
 
     private AlertDialog popUpInfo;
     private int clickCount;
+    private SharedPreferences prefs;
     final private static String DIAGTYPE = "diagType";
     final private static int DIAG_CHANGE = 0;
     final private static int DIAG_THANKS = 1;
@@ -97,13 +101,21 @@ public class AboutFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        prefs = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 
         this.popUpInfo = null;
         clickCount = 0;
     }
 
     private void noBrowserSnack(View v) {
-        Snackbar.make(v, getString(R.string.no_browser_error), Snackbar.LENGTH_LONG).show();
+        int bgColor = prefs.getInt(TinkerActivity.THEME_TOGGLE, ThemeSwitch.DARK) == ThemeSwitch.LIGHT
+                ? getActivity().getResources().getColor(R.color.snackbar_bg_light, null)
+                : getActivity().getResources().getColor(R.color.snackbar_bg, null);
+        TinkerActivity.showSnack(
+                v,
+                getString(R.string.no_browser_error),
+                bgColor,
+                true);
     }
 
     @Override
@@ -112,6 +124,9 @@ public class AboutFragment extends Fragment {
 
         final LinearLayout logo = (LinearLayout)v.findViewById(R.id.logo_card);
         LinearLayout thanks = (LinearLayout)v.findViewById(R.id.credits_card);
+        final int bgColor = prefs.getInt(TinkerActivity.THEME_TOGGLE, ThemeSwitch.DARK) == ThemeSwitch.LIGHT
+                ? getActivity().getResources().getColor(R.color.snackbar_bg_light, null)
+                : getActivity().getResources().getColor(R.color.snackbar_bg, null);
 
         //pushbullet
         LinearLayout link1 = (LinearLayout)v.findViewById(R.id.link1_card);
@@ -197,13 +212,24 @@ public class AboutFragment extends Fragment {
             public void onClick(View v) {
                 clickCount++;
                 if (clickCount == 5) {
-                    Snackbar.make(v, getString(R.string.click1), Snackbar.LENGTH_SHORT).show();
-                }
-                if (clickCount > 5 && clickCount < 10) {
-                    Snackbar.make(v, String.format(getString(R.string.click2), clickCount), Snackbar.LENGTH_SHORT).show();
-                }
-                if (clickCount == 10) {
-                    Snackbar.make(v, String.format(getString(R.string.click3), clickCount), Snackbar.LENGTH_LONG).show();
+                    TinkerActivity.showSnack(
+                            v,
+                            getString(R.string.click1),
+                            bgColor,
+                            false);
+                } else if (clickCount > 5 && clickCount < 10) {
+                    TinkerActivity.showSnack(
+                            v,
+                            String.format(getString(R.string.click2), clickCount),
+                            bgColor,
+                            false);
+                } else if (clickCount == 10) {
+                    TinkerActivity.showSnack(
+                            v,
+                            String.format(getString(R.string.click3), clickCount),
+                            bgColor,
+                            false);
+
                     clickCount = 0;
                 }
             }
@@ -212,4 +238,5 @@ public class AboutFragment extends Fragment {
         logo.setClickable(false);
         return v;
     }
+
 }

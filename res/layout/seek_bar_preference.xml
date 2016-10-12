@@ -7,8 +7,7 @@
     android:paddingStart="14dp"
     android:paddingTop="5dp"
     android:paddingEnd="12dp"
-    android:paddingBottom="5dp"
-    >
+    android:paddingBottom="5dp">
 
     <TextView android:id="@android:id/title"
             android:layout_alignParentStart="true"
@@ -16,7 +15,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="?attr/CustomCardTitle" />
 
     <TextView android:id="@android:id/summary"
             android:layout_alignParentStart="true"
@@ -24,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@android:id/title"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:textColor="?attr/CustomCardTitle" />
 
     <RelativeLayout
             android:layout_width="fill_parent"
@@ -36,7 +35,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/CustomCardTitle" />
 
             <TextView android:id="@+id/seekBarPrefValue"
                     android:layout_centerInParent="true"
@@ -45,14 +45,16 @@
                     android:layout_toStartOf="@id/seekBarPrefUnitsRight"
                     android:gravity="end"
                     android:paddingEnd="5dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/CustomCardTitle" />
 
             <TextView android:id="@+id/seekBarPrefUnitsLeft"
                     android:layout_centerInParent="true"
                     android:layout_toStartOf="@id/seekBarPrefValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?attr/CustomCardTitle" />
 
             <LinearLayout android:id="@+id/seekBarPrefBarContainer"
                     android:orientation="horizontal"

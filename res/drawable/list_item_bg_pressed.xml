@@ -18,8 +18,8 @@
     android:shape="rectangle">
 
     <gradient
-        android:startColor="@color/list_background_pressed"
-        android:endColor="@color/list_background_pressed"
+        android:startColor="?attr/card_bg"
+        android:endColor="?attr/card_bg"
         android:angle="90" />
 
 </shape>

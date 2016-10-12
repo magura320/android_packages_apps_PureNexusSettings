@@ -17,12 +17,17 @@
 package com.android.purenexussettings;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -48,9 +53,12 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.Surface;
 import android.view.View;
+import android.widget.PopupMenu;
 
 import java.util.Arrays;
 import java.util.Stack;
+
+import com.android.purenexussettings.utils.ThemeSwitch;
 
 public class TinkerActivity extends AppCompatActivity {
 
@@ -103,15 +111,61 @@ public class TinkerActivity extends AppCompatActivity {
     public static String mEditName;
     public static String mEditKey;
 
+    // for theme checking
+    private boolean mIsDark;
+    private SharedPreferences prefs;
+    public final static String THEME_TOGGLE = "appthemetog";
+
     // For handling quick back/About presses
     private Handler myHandler = new Handler();
+
+    public static class ThemeDialogFragment extends DialogFragment
+    {
+        public ThemeDialogFragment() {}
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final SharedPreferences preferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
+            final int current = preferences.getInt(THEME_TOGGLE, ThemeSwitch.DARK);
+            final int position = getArguments().getInt(EXTRA_START_FRAGMENT);
+
+            builder.setTitle(getActivity().getResources().getString(R.string.action_theme));
+            builder.setSingleChoiceItems(R.array.app_theme_entries, current, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    if (current != item) {
+                        preferences.edit().putInt(THEME_TOGGLE, item).apply();
+                        ThemeSwitch.changeTheme(getActivity(), position);
+                    }
+                    dialog.dismiss();// dismiss the alertbox after chose option
+                }
+            });
+
+            return builder.create();
+        }
+
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            // need to do anything here...?
+            super.onDismiss(dialog);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set theme based on toggle
+        prefs = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+        ThemeSwitch.setTheme(this, prefs.getInt(THEME_TOGGLE, ThemeSwitch.DARK));
+
         setContentView(R.layout.activity_tinker);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mIsDark = prefs.getInt(THEME_TOGGLE, ThemeSwitch.DARK) == ThemeSwitch.DARK
+                || prefs.getInt(THEME_TOGGLE, ThemeSwitch.DARK) == ThemeSwitch.BLACK;
 
         // set up some defaults
         boolean cLockInstalled;
@@ -149,9 +203,15 @@ public class TinkerActivity extends AppCompatActivity {
         mNavView = (NavigationView) findViewById(R.id.slidermenu);
 
         // create navigationview items
-        Menu menu = mNavView.getMenu();
-        // pulled in crap menu in xml, need to clear it first
-        menu.clear();
+        Menu menu;
+        if (mNavView != null) {
+            menu = mNavView.getMenu();
+            menu.clear();
+        } else {
+            PopupMenu popupMenu = new PopupMenu(this, null);
+            menu = popupMenu.getMenu();
+            menu.clear();
+        }
 
         // pull in category names and numbers in each
         String[] navMenuCats = getResources().getStringArray(R.array.nav_drawer_cats);
@@ -161,6 +221,9 @@ public class TinkerActivity extends AppCompatActivity {
         int j=0;
         int total=0;
         SubMenu submenu=null;
+        int fontColor = mIsDark
+                ? getResources().getColor(R.color.cardview_pref_title, null)
+                : getResources().getColor(R.color.cardview_pref_title_light, null);
         // go through the total possible menu list
         for (int i=0; i < navMenuTitles.length; i++) {
             // when the count equals a threshold value, increment/sum and add submenu
@@ -168,7 +231,7 @@ public class TinkerActivity extends AppCompatActivity {
                 total += navMenuCatCounts[j];
                 // format submenu headings
                 SpannableString strcat= new SpannableString(navMenuCats[j]);
-                strcat.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.alphawhite, null)), 0, strcat.length(),0);
+                strcat.setSpan(new ForegroundColorSpan(fontColor), 0, strcat.length(),0);
                 strcat.setSpan(new RelativeSizeSpan(0.85f), 0, strcat.length(), 0);
                 strcat.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, strcat.length(), 0);
                 // is the 10 * (j + 1) bit needed...? Maybe not... meh
@@ -179,7 +242,7 @@ public class TinkerActivity extends AppCompatActivity {
             if (total > 0) {
                 // format menu item title
                 SpannableString stritem= new SpannableString(navMenuTitles[i]);
-                stritem.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.alphawhite, null)), 0, stritem.length(),0);
+                stritem.setSpan(new ForegroundColorSpan(fontColor), 0, stritem.length(),0);
                 // group id is j, i is item id and order..., then title - includes logic for conditional entries
                 if ( cLockInstalled || !(navMenuTitles[i].equals("cLock")) ) {
                     // an attempt to add icon if included...
@@ -193,7 +256,7 @@ public class TinkerActivity extends AppCompatActivity {
         }
 
         // remove icon tint from NavView
-        mNavView.setItemIconTintList(null);
+        //mNavView.setItemIconTintList(null);
 
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -262,9 +325,17 @@ public class TinkerActivity extends AppCompatActivity {
                 if (slideOffset < 0.5f && !openingHalf) {
                     openingHalf = true;
                     invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                    if (!mIsDark) {
+                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    }
                 } else if (slideOffset > 0.5f && openingHalf) {
                     openingHalf = false;
                     invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                    if (!mIsDark) {
+                        getWindow().getDecorView().setSystemUiVisibility(
+                                getWindow().getDecorView().getSystemUiVisibility() - View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    }
+
                 }
             }
 
@@ -274,6 +345,7 @@ public class TinkerActivity extends AppCompatActivity {
 
         fragmentManager = getFragmentManager();
 
+        // TODO - rework this for theme reset stuff?
         if (savedInstanceState == null) {
             // on first time display view for first nav item
             displayView(mItemPosition = getIntent().getIntExtra(EXTRA_START_FRAGMENT, 0));
@@ -296,8 +368,25 @@ public class TinkerActivity extends AppCompatActivity {
         switch(origposition) {
             case 2: //editprop frag
                 return 1; //buildprop frag
+
             default:
                 return newposition;
+        }
+    }
+
+    private void resetEmptyStack(int position) {
+        // force about back in
+        fragmentStack.push(navMenuFrags[0]);
+        switch (position) {
+            case 1: // buildprop
+            case 2: // editprop
+            case 3: // fiswitch
+                fragmentStack.push("DeviceFragment");
+                break;
+            case 4:
+            case 5:
+                fragmentStack.push("StatusBarFragment");
+                break;
         }
     }
 
@@ -415,7 +504,14 @@ public class TinkerActivity extends AppCompatActivity {
                 }
             }, 400);
         } else {
-            Snackbar.make(findViewById(R.id.frame_container), getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
+            int bgColor = mIsDark
+                    ? getResources().getColor(R.color.snackbar_bg, null)
+                    : getResources().getColor(R.color.snackbar_bg_light, null);
+            showSnack(
+                    findViewById(R.id.frame_container),
+                    getString(R.string.general_error),
+                    bgColor,
+                    false);
         }
     }
 
@@ -448,8 +544,12 @@ public class TinkerActivity extends AppCompatActivity {
                 if (!mKeepStack) {
                     fragmentStack.pop();
                 }
+                if (fragmentStack.size() == 0) {
+                    resetEmptyStack(mItemPosition);
+                }
                 // uses fragment name to find displayview-relevant position
                 final int position = Arrays.asList(navMenuFrags).indexOf(fragmentStack.lastElement());
+
                 // set position based on above or origfrag if nested subfrag
                 mItemPosition = checkSubFrag(mItemPosition, position);
                 // a setup similar to onclickitem
@@ -501,6 +601,14 @@ public class TinkerActivity extends AppCompatActivity {
                     }, 400);
                 }
                 return true;
+            case R.id.action_theme:
+                ThemeDialogFragment themeDiag = new ThemeDialogFragment();
+                Bundle diagType = new Bundle();
+                diagType.putInt(EXTRA_START_FRAGMENT, mItemPosition);
+                themeDiag.setArguments(diagType);
+                themeDiag.show(getFragmentManager(), "Theme picker");
+                // trigger dialog with theme options?
+                return true;
             case R.id.action_launchhide:
                 boolean checked = item.isChecked();
                 item.setChecked(!checked);
@@ -527,8 +635,9 @@ public class TinkerActivity extends AppCompatActivity {
             menu.findItem(R.id.action_discard).setVisible(iseditprop);
             menu.findItem(R.id.action_delete).setVisible(iseditprop);
             menu.findItem(R.id.action_fabhide).setVisible(isfiswitch);
-            menu.findItem(R.id.action_launchhide).setVisible(!(isbuildprop || iseditprop ||isfiswitch));
-            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isfiswitch));
+            menu.findItem(R.id.action_theme).setVisible(true);
+            menu.findItem(R.id.action_launchhide).setVisible(!(isbuildprop || iseditprop || isfiswitch));
+            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isfiswitch) && mItemPosition != 0);
         } else {
             menu.setGroupVisible(R.id.action_items, false);
         }
@@ -573,6 +682,16 @@ public class TinkerActivity extends AppCompatActivity {
     private boolean isLauncherIconEnabled() {
         PackageManager packman = getPackageManager();
         return (packman.getComponentEnabledSetting(new ComponentName(this, LauncherActivity.class)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+    }
+
+    public static void showSnack(View view, String text, int bgColor, boolean isLong) {
+        Snackbar snackbar = Snackbar.make(
+                view,
+                text,
+                isLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundColor(bgColor);
+        snackbar.show();
     }
 
     public static void lockCurrentOrientation(Activity activity) {

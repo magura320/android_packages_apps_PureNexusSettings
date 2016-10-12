@@ -16,6 +16,8 @@
             android:orderInCategory="20" pure:showAsAction="never" />
         <item android:id="@+id/action_restore" android:title="@string/editprop_restore"
             android:orderInCategory="25" pure:showAsAction="never" />
+        <item android:id="@+id/action_theme" android:title="@string/action_theme"
+            android:orderInCategory="27" pure:showAsAction="never" />
         <item android:id="@+id/action_fabhide" android:title="@string/action_fabhide"
             android:orderInCategory="30" android:checkable="true" pure:showAsAction="never" />
         <item android:id="@+id/action_launchhide" android:title="@string/action_launchhide"

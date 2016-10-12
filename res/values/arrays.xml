@@ -95,6 +95,13 @@
         <item>null</item>
     </array>
 
+    <!-- Theme option entries -->
+    <string-array name="app_theme_entries" translatable="false">
+        <item>Default</item>
+        <item>Light</item>
+        <item>Black</item>
+    </string-array>
+
     <!-- PowerMenu entries -->
     <string-array name="power_menu_actions_array" translatable="false">
         <item>power</item>
