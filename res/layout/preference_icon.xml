@@ -36,10 +36,11 @@
         android:maxWidth="36dip"
         android:maxHeight="36dip"
         android:adjustViewBounds="true"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:contentDescription="@string/desc_list_item_icon"/>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dip"
         android:layout_marginEnd="6dip"
@@ -50,9 +51,9 @@
         <TextView android:id="@android:id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="?attr/CustomCardTitle"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal" />
 
@@ -62,7 +63,7 @@
             android:layout_below="@android:id/title"
             android:layout_alignStart="@android:id/title"
             android:textAppearance="@android:style/TextAppearance.Material.Body1"
-            android:textColor="?android:attr/textColorSecondary"
+            android:textColor="?attr/CustomCardTitle"
             android:maxLines="2" />
 
     </RelativeLayout>

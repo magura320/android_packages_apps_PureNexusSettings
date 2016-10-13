@@ -31,7 +31,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android.purenexussettings.notificationlight.ApplicationLightPreference;
-import com.android.purenexussettings.R;
 
 public class BatteryLightSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -51,8 +50,6 @@ public class BatteryLightSettings extends PreferenceFragment implements
     private ApplicationLightPreference mFullColorPref;
     private SwitchPreference mLightEnabledPref;
     private SwitchPreference mPulseEnabledPref;
-
-    private static final int MENU_RESET = Menu.FIRST;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,17 +132,9 @@ public class BatteryLightSettings extends PreferenceFragment implements
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.add(0, MENU_RESET, 0, R.string.reset)
-                .setIcon(R.drawable.ic_settings_reset)
-                .setAlphabeticShortcut('r')
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case MENU_RESET:
+            case R.id.action_reset:
                 resetToDefaults();
                 return true;
         }

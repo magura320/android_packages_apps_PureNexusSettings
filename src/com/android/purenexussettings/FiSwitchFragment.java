@@ -71,6 +71,7 @@ public class FiSwitchFragment extends Fragment {
         LinearLayout link4 = (LinearLayout)view.findViewById(R.id.dialcode4);
         LinearLayout link5 = (LinearLayout)view.findViewById(R.id.dialcode5);
         LinearLayout link6 = (LinearLayout)view.findViewById(R.id.dialcode6);
+        LinearLayout link7 = (LinearLayout)view.findViewById(R.id.dialcode7);
 
         link1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +118,14 @@ public class FiSwitchFragment extends Fragment {
             public void onClick(View v) {
                 // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
                 getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://344636")));
+            }
+        });
+
+        link7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
+                getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34872")));
             }
         });
 

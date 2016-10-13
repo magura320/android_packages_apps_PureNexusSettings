@@ -112,7 +112,6 @@ public class TinkerActivity extends AppCompatActivity {
     public static String mEditKey;
 
     // for theme checking
-    private boolean mIsDark;
     private SharedPreferences prefs;
     public final static String THEME_TOGGLE = "appthemetog";
 
@@ -128,12 +127,15 @@ public class TinkerActivity extends AppCompatActivity {
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             final SharedPreferences preferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
+            // grab current theme setting
             final int current = preferences.getInt(THEME_TOGGLE, ThemeSwitch.DARK);
+            // get passed position value
             final int position = getArguments().getInt(EXTRA_START_FRAGMENT);
 
             builder.setTitle(getActivity().getResources().getString(R.string.action_theme));
             builder.setSingleChoiceItems(R.array.app_theme_entries, current, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int item) {
+                    // only change theme if selection changes
                     if (current != item) {
                         preferences.edit().putInt(THEME_TOGGLE, item).apply();
                         ThemeSwitch.changeTheme(getActivity(), position);
@@ -164,9 +166,6 @@ public class TinkerActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mIsDark = prefs.getInt(THEME_TOGGLE, ThemeSwitch.DARK) == ThemeSwitch.DARK
-                || prefs.getInt(THEME_TOGGLE, ThemeSwitch.DARK) == ThemeSwitch.BLACK;
-
         // set up some defaults
         boolean cLockInstalled;
         FRAG_ARRAY_START = getResources().getIntArray(R.array.nav_drawer_cat_nums)[0];
@@ -179,6 +178,7 @@ public class TinkerActivity extends AppCompatActivity {
         mMenu = false;
         fullyClosed = true;
         openingHalf = true;
+        final boolean mIsLight = isLight(prefs);
 
         // for backstack tracking
         fragmentStack = new Stack<>();
@@ -221,9 +221,9 @@ public class TinkerActivity extends AppCompatActivity {
         int j=0;
         int total=0;
         SubMenu submenu=null;
-        int fontColor = mIsDark
-                ? getResources().getColor(R.color.cardview_pref_title, null)
-                : getResources().getColor(R.color.cardview_pref_title_light, null);
+        int fontColor = mIsLight
+                ? getResources().getColor(R.color.cardview_pref_title_light, null)
+                : getResources().getColor(R.color.cardview_pref_title, null);
         // go through the total possible menu list
         for (int i=0; i < navMenuTitles.length; i++) {
             // when the count equals a threshold value, increment/sum and add submenu
@@ -325,13 +325,15 @@ public class TinkerActivity extends AppCompatActivity {
                 if (slideOffset < 0.5f && !openingHalf) {
                     openingHalf = true;
                     invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
-                    if (!mIsDark) {
+                    // if light theme use normal light icons (black) when opening drawer...
+                    if (mIsLight) {
                         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                     }
                 } else if (slideOffset > 0.5f && openingHalf) {
                     openingHalf = false;
                     invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
-                    if (!mIsDark) {
+                    // if light theme flip em back to dark icons (so white) when drawer is mostly open
+                    if (mIsLight) {
                         getWindow().getDecorView().setSystemUiVisibility(
                                 getWindow().getDecorView().getSystemUiVisibility() - View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                     }
@@ -368,10 +370,13 @@ public class TinkerActivity extends AppCompatActivity {
         switch(origposition) {
             case 2: //editprop frag
                 return 1; //buildprop frag
-
             default:
                 return newposition;
         }
+    }
+
+    public static boolean isLight(SharedPreferences prefs) {
+        return prefs.getInt(THEME_TOGGLE, ThemeSwitch.DARK) == ThemeSwitch.LIGHT;
     }
 
     private void resetEmptyStack(int position) {
@@ -383,9 +388,13 @@ public class TinkerActivity extends AppCompatActivity {
             case 3: // fiswitch
                 fragmentStack.push("DeviceFragment");
                 break;
-            case 4:
-            case 5:
+            case 4: // clock
+            case 5: // net traffic
                 fragmentStack.push("StatusBarFragment");
+                break;
+            case 6:
+            case 7:
+                fragmentStack.push("DisplayFragment");
                 break;
         }
     }
@@ -479,6 +488,7 @@ public class TinkerActivity extends AppCompatActivity {
 
     public void displaySubFrag(String title) {
         int poscheck = -1;
+        boolean isLight = isLight(prefs);
 
         // Look for title in array of titles to get position
         for (int i=0; i < navMenuTitles.length; i++) {
@@ -504,9 +514,9 @@ public class TinkerActivity extends AppCompatActivity {
                 }
             }, 400);
         } else {
-            int bgColor = mIsDark
-                    ? getResources().getColor(R.color.snackbar_bg, null)
-                    : getResources().getColor(R.color.snackbar_bg_light, null);
+            int bgColor = isLight
+                    ? getResources().getColor(R.color.snackbar_bg_light, null)
+                    : getResources().getColor(R.color.snackbar_bg, null);
             showSnack(
                     findViewById(R.id.frame_container),
                     getString(R.string.general_error),
@@ -544,6 +554,8 @@ public class TinkerActivity extends AppCompatActivity {
                 if (!mKeepStack) {
                     fragmentStack.pop();
                 }
+
+                // reset stack if empty - can happen w/ theme switch
                 if (fragmentStack.size() == 0) {
                     resetEmptyStack(mItemPosition);
                 }
@@ -603,6 +615,7 @@ public class TinkerActivity extends AppCompatActivity {
                 return true;
             case R.id.action_theme:
                 ThemeDialogFragment themeDiag = new ThemeDialogFragment();
+                // pass current frag position
                 Bundle diagType = new Bundle();
                 diagType.putInt(EXTRA_START_FRAGMENT, mItemPosition);
                 themeDiag.setArguments(diagType);
@@ -629,6 +642,12 @@ public class TinkerActivity extends AppCompatActivity {
             boolean isbuildprop = (mItemPosition == 1);
             boolean iseditprop = (mItemPosition == 2);
             boolean isfiswitch = (mItemPosition == 3);
+            boolean isNotiLight = (mItemPosition == 6);
+            boolean isBattLight = (mItemPosition == 7);
+            if (!isNotiLight) {
+                menu.findItem(R.id.action_add).setVisible(false);
+            }
+            menu.findItem(R.id.action_reset).setVisible(isBattLight);
             menu.findItem(R.id.action_backup).setVisible(isbuildprop);
             menu.findItem(R.id.action_restore).setVisible(isbuildprop);
             menu.findItem(R.id.action_search).setVisible(isbuildprop);
@@ -637,7 +656,8 @@ public class TinkerActivity extends AppCompatActivity {
             menu.findItem(R.id.action_fabhide).setVisible(isfiswitch);
             menu.findItem(R.id.action_theme).setVisible(true);
             menu.findItem(R.id.action_launchhide).setVisible(!(isbuildprop || iseditprop || isfiswitch));
-            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isfiswitch) && mItemPosition != 0);
+            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isfiswitch || isNotiLight || isBattLight)
+                    && mItemPosition != 0);
         } else {
             menu.setGroupVisible(R.id.action_items, false);
         }
@@ -685,6 +705,7 @@ public class TinkerActivity extends AppCompatActivity {
     }
 
     public static void showSnack(View view, String text, int bgColor, boolean isLong) {
+        // make snackbar bgs change w/ theme
         Snackbar snackbar = Snackbar.make(
                 view,
                 text,
