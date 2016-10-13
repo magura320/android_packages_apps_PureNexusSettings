@@ -55,29 +55,11 @@
     <string name="alertdiagtitle">Changelog v1.0</string>
     <string name="setpositive">OK</string>
     <string name="setnegative">Credits</string>
-    <string name="changelog"><![CDATA[
-&#8226; Made a groovy little settings app<br />
-&#8226; Did lots of minor UI things<br />
-&#160; &#8226; Animated fragment switching and backstack handling<br />
-&#160; &#8226; Actionbar options when interacting with navdrawer<br />
-&#8226; Modified margaritov/SlimRom color picker<br />
-&#160; &#8226; Added alpha slider text - represents current alpha as percentage<br />
-&#160; &#8226; Fixed minor hex-picking int-to-HSV-to-int issue<br />
-&#160; &#8226; Edited color picker layout to show better in landscape<br />
-&#160; &#8226; Added reset button for default color in color picker<br />
-&#160; &#8226; Custom preview options setable via longpress<br />
-&#8226; Added ability to hide/show app in app drawer<br />
-&#8226; Added some fun extras<br />
-&#8226; Incorporated Chainfire\'s libsuperuser to handle root tasks<br />]]></string>
-    <string name="credits"><![CDATA[
-&#8226; Chainfire for the easy-to-implement libsuperuser library<br />
-&#8226; margaritov/slim rom for the color picker base<br />
-&#8226; Beans for the rom and an excuse to tinker<br />
-&#8226; Cheekybastards for living up to their namesake<br />
-&#8226; DaveyAnnihilation for all the help with setting things up theme-friendly and general aesthetics<br />
-&#8226; Gunthermic, for testing and great ideas with the colorpicker<br />
-&#8226; All contributors to stackoverflow or various other java/android app making resources<br />
-&#8226; Those not mentioned but should have been<br />]]></string>
+    <string name="credits">Thanks go to:,Chainfire for the easy-to-implement libsuperuser library,margaritov/slim rom for the
+    color picker base,Beans for the rom and an excuse to tinker,Cheekybastards for living up to their namesake,DaveyAnnihilation
+    for all the help with setting things up theme-friendly and general aesthetics,Gunthermic for testing and great ideas with the
+    colorpicker,All contributors to stackoverflow or various other java/android app making resources,Those not mentioned but should
+    have been!</string>
 
   <!-- BuildProp editor -->
     <string name="buildprop_frag_title">Build prop</string>
@@ -137,6 +119,8 @@
     <string name="dial1_sum">Force jump to Sprint</string>
     <string name="dial2">T-Mobile</string>
     <string name="dial2_sum">Force jump to T-Mobile</string>
+    <string name="dial7">US Cellular</string>
+    <string name="dial7_sum">Force jump to US Cellular</string>
     <string name="dial3">Next carrier</string>
     <string name="dial3_sum">Force jump to next carrier</string>
     <string name="dial4">Auto-switch</string>
@@ -145,7 +129,7 @@
     <string name="dial5_sum">Resets everything</string>
     <string name="dial6">Info</string>
     <string name="dial6_sum">Current network info</string>
-    
+
   <!-- Navdrawer categories -->
     <string name="interface_cat_title">Interface</string>
     <string name="button_cat_title">Buttons</string>

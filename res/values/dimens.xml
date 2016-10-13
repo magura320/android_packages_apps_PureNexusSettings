@@ -24,7 +24,7 @@
     <dimen name="cardview_rounding">4dp</dimen>
     <dimen name="cardview_pref_height">90dp</dimen>
     <dimen name="cardview_elevate">5dp</dimen>
-    <dimen name="changelog_txt_size">16sp</dimen>
+    <dimen name="credit_txt_size">14sp</dimen>
     <dimen name="card_fade_edge">75dp</dimen>
     <dimen name="vert_fade_edge">50dp</dimen>
     <dimen name="horiz_fade_edge">50dp</dimen>

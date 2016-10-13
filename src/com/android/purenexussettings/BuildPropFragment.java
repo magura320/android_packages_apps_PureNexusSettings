@@ -20,6 +20,7 @@ package com.android.purenexussettings;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,7 +28,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -61,6 +61,7 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     private BuildPropRecyclerAdapter mAdapter;
     private ArrayList<Map<String, String>> mProplist;
     private boolean mHasRoom;
+    private int bgColor;
 
     private class LoadProp extends AsyncTask<Void, Void, Void> {
         private ProgressDialog dialog = null;
@@ -170,18 +171,38 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
             String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/build.prop.bak";
 
             if (!suAvailable) {
-                Snackbar.make(mLayout, getString(R.string.no_root_error), Snackbar.LENGTH_SHORT).show();
+                TinkerActivity.showSnack(
+                        mLayout,
+                        getString(R.string.no_root_error),
+                        bgColor,
+                        false);
             } else if (mTryCatchFail) {
-                Snackbar.make(mLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
+                TinkerActivity.showSnack(
+                        mLayout,
+                        getString(R.string.general_error),
+                        bgColor,
+                        false);
             } else if (mIsRestore){
-                Snackbar.make(mLayout, String.format(getString(R.string.restore_loc), filepath), Snackbar.LENGTH_LONG).show();
+                TinkerActivity.showSnack(
+                        mLayout,
+                        String.format(getString(R.string.restore_loc), filepath),
+                        bgColor,
+                        true);
             }
 
             if (EditPropFragment.isProcessing) {
                 if (EditPropFragment.isProcessingError) {
-                    Snackbar.make(mLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
+                    TinkerActivity.showSnack(
+                            mLayout,
+                            getString(R.string.general_error),
+                            bgColor,
+                            false);
                 } else {
-                    Snackbar.make(mLayout, String.format(getString(R.string.edit_backup_loc), filepath), Snackbar.LENGTH_LONG).show();
+                    TinkerActivity.showSnack(
+                            mLayout,
+                            String.format(getString(R.string.edit_backup_loc), filepath),
+                            bgColor,
+                            true);
                 }
             }
 
@@ -308,6 +329,11 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         mCoordLayout = (CoordinatorLayout) view.findViewById(R.id.buildpropcoord);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerList);
 
+        SharedPreferences prefs = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
+        bgColor = TinkerActivity.isLight(prefs)
+                ? getActivity().getResources().getColor(R.color.snackbar_bg_light, null)
+                : getActivity().getResources().getColor(R.color.snackbar_bg, null);
+
         // Attempt to flag instances where writing to build.prop
         // is not possible due to no space
         String filepath = "/system";
@@ -318,7 +344,11 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
 
         if (file.getFreeSpace() == 0) {
             mHasRoom = false;
-            Snackbar.make(mCoordLayout, getString(R.string.no_room_error), Snackbar.LENGTH_SHORT).show();
+            TinkerActivity.showSnack(
+                    mCoordLayout,
+                    getString(R.string.no_room_error),
+                    bgColor,
+                    false);
         } else {
             mHasRoom = true;
         }
@@ -332,7 +362,12 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
                 if (mHasRoom && TinkerActivity.isRoot) {
                     ((TinkerActivity) getActivity()).displayEditProp(null, null);
                 } else {
-                    Snackbar.make(mCoordLayout, (mHasRoom ? "" : getString(R.string.no_room_error)) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "") + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)), Snackbar.LENGTH_SHORT).show();
+                    TinkerActivity.showSnack(
+                            mCoordLayout,
+                            mHasRoom ? "" : getString(R.string.no_room_error) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "")
+                                + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)),
+                            bgColor,
+                            false);
                 }
             }
         });
@@ -384,7 +419,12 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
                 if (mHasRoom && TinkerActivity.isRoot) {
                     (new LoadProp()).setInits(getActivity(), mCoordLayout, recyclerView, true).execute();
                 } else {
-                    Snackbar.make(mCoordLayout, (mHasRoom ? "" : getString(R.string.no_room_error)) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "") + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)), Snackbar.LENGTH_SHORT).show();
+                    TinkerActivity.showSnack(
+                            mCoordLayout,
+                            mHasRoom ? "" : getString(R.string.no_room_error) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "")
+                                + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)),
+                            bgColor,
+                            false);
                 }
                 return true;
             case R.id.action_backup:
@@ -436,10 +476,18 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
                 Shell.SU.run("chmod 644 /system/build.prop");
                 Shell.SU.run("mount -o ro,remount -t auto /system");
             } catch (Exception e) {
-                Snackbar.make(mCoordLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
+                TinkerActivity.showSnack(
+                        mCoordLayout,
+                        getString(R.string.general_error),
+                        bgColor,
+                        false);
             }
         } else {
-            Snackbar.make(mCoordLayout, getString(R.string.no_backup_error), Snackbar.LENGTH_SHORT).show();
+            TinkerActivity.showSnack(
+                    mCoordLayout,
+                    getString(R.string.no_backup_error),
+                    bgColor,
+                    false);
         }
     }
 
@@ -448,9 +496,17 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         try {
             // Should let backup be created even if root denied
             Shell.SH.run("cp -f /system/build.prop " + filepath);
-            Snackbar.make(mCoordLayout, String.format(getString(R.string.backup_loc), filepath), Snackbar.LENGTH_LONG).show();
+            TinkerActivity.showSnack(
+                    mCoordLayout,
+                    String.format(getString(R.string.backup_loc), filepath),
+                    bgColor,
+                    true);
         } catch (Exception e) {
-            Snackbar.make(mCoordLayout, getString(R.string.general_error), Snackbar.LENGTH_SHORT).show();
+            TinkerActivity.showSnack(
+                    mCoordLayout,
+                    getString(R.string.general_error),
+                    bgColor,
+                    false);
         }
     }
 
@@ -458,7 +514,12 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
         if (mHasRoom && TinkerActivity.isRoot) {
             ((TinkerActivity)getActivity()).displayEditProp(name, key);
         } else {
-                    Snackbar.make(mCoordLayout, (mHasRoom ? "" : getString(R.string.no_room_error)) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "") + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)), Snackbar.LENGTH_SHORT).show();
+            TinkerActivity.showSnack(
+                    mCoordLayout,
+                    mHasRoom ? "" : getString(R.string.no_room_error) + (!mHasRoom && !TinkerActivity.isRoot ? "\n" : "")
+                        + (TinkerActivity.isRoot ? "" : getString(R.string.no_root_error)),
+                    bgColor,
+                    false);
         }
     }
 

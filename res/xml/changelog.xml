@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Pure Nexus Project
+     Original credit for xml changelog structure goes to MartinvanZ and Inscription library
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<changelog>
+    <release version="1.1" versioncode="2">
+        <change>TONS of cleanup throughout - the joys of learning</change>
+        <change>Revised and updated changelog and various other dialogs</change>
+        <change>Added option to change app theme - beyond default there are options for Light and Black</change>
+    </release>
+    <release version="1.0" versioncode="1">
+        <change>Made a groovy little settings app</change>
+        <change>Did lots of minor UI things</change>
+        <change>Animated fragment switching and backstack handling</change>
+        <change>Actionbar options when interacting with navdrawer</change>
+        <change>Modified margaritov/SlimRom color picker</change>
+        <change>Added alpha slider text - represents current alpha as percentage</change>
+        <change>Fixed minor hex-picking int-to-HSV-to-int issue</change>
+        <change>Edited color picker layout to show better in landscape</change>
+        <change>Added reset button for default color in color picker</change>
+        <change>Custom preview options setable via longpress</change>
+        <change>Added ability to hide/show app in app drawer</change>
+        <change>Added some fun extras</change>
+        <change>Incorporated Chainfire\'s libsuperuser to handle root tasks</change>
+    </release>
+</changelog>
+
