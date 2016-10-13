@@ -89,7 +89,7 @@ public class AboutFragment extends Fragment {
 
                     LinearLayout mainLayout = (LinearLayout) view.findViewById(R.id.scrollLayout);
                     itWorked = getChangelogEntries(mainLayout, R.xml.changelog, resources);
-                    titleText = "Changelog";
+                    titleText = resources.getString(R.string.changetitle);
                     break;
                 case DIAG_THANKS:
                     view = getActivity().getLayoutInflater().inflate(R.layout.credits, null);

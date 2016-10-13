@@ -214,8 +214,8 @@ public class BuildPropFragment extends Fragment implements OnQueryTextListener {
     }
 
     private class BuildPropItem extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView titleText;
-        TextView descriptionText;
+        final TextView titleText;
+        final TextView descriptionText;
 
         BuildPropItem(View itemView) {
             super(itemView);
