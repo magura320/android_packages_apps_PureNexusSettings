@@ -14,8 +14,7 @@
      limitations under the License.
 -->
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:pure="http://schemas.android.com/apk/res-auto" >
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <com.android.purenexussettings.preferences.SystemSettingSwitchPreference
         android:key="double_tap_sleep_anywhere"

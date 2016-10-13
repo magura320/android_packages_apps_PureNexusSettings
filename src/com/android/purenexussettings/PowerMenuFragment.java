@@ -268,10 +268,7 @@ public class PowerMenuFragment extends PreferenceFragment {
     }
 
     private boolean isActionAllowed(String action) {
-        if (Arrays.asList(mAvailableActions).contains(action)) {
-            return true;
-        }
-        return false;
+        return Arrays.asList(mAvailableActions).contains(action);
     }
 
     private void updateUserConfig(boolean enabled, String action) {
@@ -289,7 +286,7 @@ public class PowerMenuFragment extends PreferenceFragment {
 
     private void updatePreferences() {
         boolean bugreport = Settings.Secure.getInt(getActivity().getContentResolver(),
-                Settings.Secure.BUGREPORT_IN_POWER_MENU, 0) != 0;
+                Settings.Global.BUGREPORT_IN_POWER_MENU, 0) != 0;
 
         if (mBugReportPref != null) {
             mBugReportPref.setEnabled(bugreport);
@@ -328,8 +325,6 @@ public class PowerMenuFragment extends PreferenceFragment {
         for (String action : mAllActions) {
             if (settingsArrayContains(action) && isActionAllowed(action)) {
                 setactions.add(action);
-            } else {
-                continue;
             }
         }
 

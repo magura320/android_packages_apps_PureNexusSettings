@@ -58,7 +58,7 @@ public class AlphaPatternDrawable extends Drawable {
 
     @Override
     public int getOpacity() {
-        return PixelFormat.TRANSPARENT;
+        return PixelFormat.UNKNOWN;
     }
 
     @Override

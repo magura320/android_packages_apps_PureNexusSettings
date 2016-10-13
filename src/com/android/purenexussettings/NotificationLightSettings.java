@@ -26,7 +26,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -36,7 +35,6 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,7 +45,6 @@ import com.android.purenexussettings.notificationlight.ApplicationLightPreferenc
 import com.android.purenexussettings.preferences.SystemSettingSwitchPreference;
 import com.android.purenexussettings.utils.PackageListAdapter;
 import com.android.purenexussettings.utils.PackageListAdapter.PackageItem;
-import com.android.purenexussettings.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -158,7 +155,7 @@ public class NotificationLightSettings extends PreferenceFragment implements
 
         // Get the system defined default notification color
         mDefaultColor =
-                resources.getColor(com.android.internal.R.color.config_defaultNotificationColor);
+                resources.getColor(com.android.internal.R.color.config_defaultNotificationColor, null);
 
         mDefaultLedOn = resources.getInteger(
                 com.android.internal.R.integer.config_defaultNotificationLedOn);
@@ -541,9 +538,8 @@ public class NotificationLightSettings extends PreferenceFragment implements
                 return null;
 
             try {
-                Package item = new Package(app[0], Integer.parseInt(values[0]), Integer
+                return new Package(app[0], Integer.parseInt(values[0]), Integer
                         .parseInt(values[1]), Integer.parseInt(values[2]));
-                return item;
             } catch (NumberFormatException e) {
                 return null;
             }

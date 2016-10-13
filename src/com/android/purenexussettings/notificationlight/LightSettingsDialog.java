@@ -30,7 +30,6 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.InputFilter;
-import android.text.InputFilter.LengthFilter;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +48,6 @@ import com.android.purenexussettings.R;
 import com.android.purenexussettings.notificationlight.ColorPickerView.OnColorChangedListener;
 
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
 import java.util.Locale;
 
 public class LightSettingsDialog extends AlertDialog implements
@@ -135,7 +133,7 @@ public class LightSettingsDialog extends AlertDialog implements
         mColorPanel = (LinearLayout) layout.findViewById(R.id.color_panel_view);
         mHexColorInput = (EditText) layout.findViewById(R.id.hex_color_input);
         mNewColor = (ColorPanelView) layout.findViewById(R.id.color_panel);
-        mLightsDialogDivider = (View) layout.findViewById(R.id.lights_dialog_divider);
+        mLightsDialogDivider = layout.findViewById(R.id.lights_dialog_divider);
         mPulseSpeedOn = (Spinner) layout.findViewById(R.id.on_spinner);
         mPulseSpeedOff = (Spinner) layout.findViewById(R.id.off_spinner);
 

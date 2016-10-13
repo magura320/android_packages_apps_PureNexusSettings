@@ -18,11 +18,9 @@ package com.android.purenexussettings;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -30,16 +28,11 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.EditText;
 
 import java.util.Date;
-import java.util.Locale;
 
 public class ClockDateFragment extends PreferenceFragment
         implements OnPreferenceChangeListener {
@@ -257,17 +250,10 @@ public class ClockDateFragment extends PreferenceFragment
                         }
                         Settings.System.putString(getActivity().getContentResolver(),
                             Settings.System.STATUSBAR_CLOCK_DATE_FORMAT, value);
-
-                        return;
                     }
                 });
 
-                alert.setNegativeButton(R.string.cancelprop,
-                    new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        return;
-                    }
-                });
+                alert.setNegativeButton(R.string.cancelprop, null);
                 dialog = alert.create();
                 dialog.show();
             } else {

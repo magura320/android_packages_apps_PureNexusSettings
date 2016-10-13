@@ -15,8 +15,7 @@
 -->
 
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:pure="http://schemas.android.com/apk/res-auto" >
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <PreferenceCategory
         android:key="general_section"
@@ -55,7 +54,7 @@
             android:title="@string/battery_light_full_color_title"
             android:persistent="false" />
 
-        <com.android.settings.notificationlight.ApplicationLightPreference
+        <com.android.purenexussettings.notificationlight.ApplicationLightPreference
             android:key="really_full_color"
             android:title="@string/battery_light_really_full_color_title"
             android:persistent="false" />

@@ -31,6 +31,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Shader.TileMode;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,7 +46,7 @@ import android.view.View;
 public class ColorPickerView extends View {
 
     public interface OnColorChangedListener {
-        public void onColorChanged(int color);
+        void onColorChanged(int color);
     }
 
     private final static int PANEL_SAT_VAL = 0;
@@ -320,7 +321,7 @@ public class ColorPickerView extends View {
 
         canvas.drawRect(rect, mAlphaPaint);
 
-        if (mAlphaSliderText != null && mAlphaSliderText != "") {
+        if (mAlphaSliderText != null && !TextUtils.isEmpty(mAlphaSliderText)) {
             canvas.drawText(mAlphaSliderText, rect.centerX(), rect.centerY() + 4 * mDensity,
                     mAlphaTextPaint);
         }

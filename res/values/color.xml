@@ -52,7 +52,6 @@
     <color name="fab_color">#ff0288d1</color>
     <color name="fab_ripple">#ff81d4fa</color>
     <color name="transp">#00000000</color>
-    <color name="notselected">#ff999999</color>
     <!-- If one wanted... they could alter the checkered alpha colors with the below -->
     <color name="alphawhite">#ffffffff</color>
     <color name="alphagray">#ffcbcbcb</color>
