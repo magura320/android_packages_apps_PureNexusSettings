@@ -16,8 +16,6 @@
 
 package com.android.purenexussettings;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -27,25 +25,17 @@ import android.support.annotation.NonNull;
 
 public class DeviceFragment extends PreferenceFragment {
     private static final String RADIO_INFO = "radioinfo";
-    private static final String BUILDPROPEDITOR = "buildpropeditor";
-    private static final String FISWITCH = "fiswitch";
-
-    private Preference mBuildProp;
-    private Preference mFiSwitch;
 
     public DeviceFragment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean FiAppInstalled;
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.device_fragment);
 
         Preference mRadioInfo = findPreference(RADIO_INFO);
-        mBuildProp = findPreference(BUILDPROPEDITOR);
-        mFiSwitch = findPreference(FISWITCH);
 
         PreferenceScreen prefScreen = getPreferenceScreen();
 
@@ -53,34 +43,11 @@ public class DeviceFragment extends PreferenceFragment {
         if ( (getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE ) {
             prefScreen.removePreference(mRadioInfo);
         }
-
-        // check if Project Fi app installed
-        try {
-            PackageInfo pi = getActivity().getPackageManager().getPackageInfo(TinkerActivity.PROJFI_PACKAGE_NAME, 0);
-            FiAppInstalled = pi.applicationInfo.enabled;
-        } catch (PackageManager.NameNotFoundException e) {
-            FiAppInstalled = false;
-        }
-
-        if (!FiAppInstalled) {
-            prefScreen.removePreference(mFiSwitch);
-        }
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen, @NonNull Preference pref) {
-        if (pref == mBuildProp) {
-            ((TinkerActivity)getActivity()).displaySubFrag(getString(R.string.buildprop_frag_title));
-
-            return true;
-        }
-
-        if (pref == mFiSwitch) {
-            ((TinkerActivity)getActivity()).displaySubFrag(getString(R.string.fiswitch_frag_title));
-
-            return true;
-        }
-
+        // Nothing needed in here currently...
         return false;
     }
 }

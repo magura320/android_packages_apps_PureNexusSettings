@@ -33,7 +33,7 @@
         <change>Custom preview options setable via longpress</change>
         <change>Added ability to hide/show app in app drawer</change>
         <change>Added some fun extras</change>
-        <change>Incorporated Chainfire\'s libsuperuser to handle root tasks</change>
+        <change>Incorporated Chainfire's libsuperuser to handle root tasks</change>
     </release>
 </changelog>
 

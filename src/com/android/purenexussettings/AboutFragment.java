@@ -98,7 +98,7 @@ public class AboutFragment extends Fragment {
                     SpannableStringBuilder creditText = new SpannableStringBuilder();
 
                     if (credits.length <= 0) {
-                        creditText.append("ERROR LOADING STRING");
+                        creditText.append(resources.getString(R.string.general_error));
                     } else {
                         creditText.append(credits[0]);
                         creditText.append("\n\n");

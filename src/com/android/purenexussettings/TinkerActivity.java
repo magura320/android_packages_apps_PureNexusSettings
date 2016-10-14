@@ -29,7 +29,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -78,8 +77,6 @@ public class TinkerActivity extends AppCompatActivity {
     public static final String EXTRA_START_FRAGMENT = "com.android.purenexussettings.tinkerings.EXTRA_START_FRAGMENT";
 
     public static final String PROJFI_PACKAGE_NAME = "com.google.android.apps.tycho";
-    public static final String KEY_LOCK_CLOCK_PACKAGE_NAME = "com.cyanogenmod.lockclock";
-    public static final String KEY_LOCK_CLOCK_CLASS_NAME = "com.cyanogenmod.lockclock.preference.Preferences";
 
     // example - used to retain slidetab position
     public static int LAST_SLIDE_BAR_TAB;
@@ -167,7 +164,6 @@ public class TinkerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // set up some defaults
-        boolean cLockInstalled;
         FRAG_ARRAY_START = getResources().getIntArray(R.array.nav_drawer_cat_nums)[0];
         mTitle = mDrawerTitle = getTitle();
         mPackageName = getPackageName();
@@ -182,14 +178,6 @@ public class TinkerActivity extends AppCompatActivity {
 
         // for backstack tracking
         fragmentStack = new Stack<>();
-
-        // check if cLock installed
-        try {
-            PackageInfo pi = getPackageManager().getPackageInfo(KEY_LOCK_CLOCK_PACKAGE_NAME, 0);
-            cLockInstalled = pi.applicationInfo.enabled;
-        } catch (PackageManager.NameNotFoundException e) {
-            cLockInstalled = false;
-        }
 
         // load slide menu items - titles and frag names
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -244,15 +232,13 @@ public class TinkerActivity extends AppCompatActivity {
                 SpannableString stritem= new SpannableString(navMenuTitles[i]);
                 stritem.setSpan(new ForegroundColorSpan(fontColor), 0, stritem.length(),0);
                 // group id is j, i is item id and order..., then title - includes logic for conditional entries
-                if ( cLockInstalled || !(navMenuTitles[i].equals("cLock")) ) {
-                    // an attempt to add icon if included...
-                    if (navMenuIcons.getResourceId(i, -1) != -1) {
-                        submenu.add(j, i, i, stritem).setIcon(navMenuIcons.getResourceId(i, -1));
-                    } else {
-                        submenu.add(j, i, i, stritem);
-                    }
+                // an attempt to add icon if included...
+                if (navMenuIcons.getResourceId(i, -1) != -1) {
+                    submenu.add(j, i, i, stritem).setIcon(navMenuIcons.getResourceId(i, -1));
+                } else {
+                    submenu.add(j, i, i, stritem);
                 }
-            }
+             }
         }
 
         // remove icon tint from NavView
@@ -262,18 +248,18 @@ public class TinkerActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // check for external app launching navdrawer items
-                if ( navMenuTitles[item.getItemId()].equals("cLock") ) {
-                    mIgnore = true;
-                    mDrawerLayout.closeDrawer(mNavView);
-                    launchcLock();
-                }
-                
+                // ...nothing here currently...
+
                 // if nothing was caught in the above, do the usual prep to show frag stuff
                 if (!mIgnore) {
-                    mItemPosition = item.getItemId();
-                    mFromClick = true;
-                    setTitle(navMenuTitles[mItemPosition]);
-                    removeCurrent();
+                    if (mItemPosition != item.getItemId()) {
+                        mItemPosition = item.getItemId();
+                        mFromClick = true;
+                        setTitle(navMenuTitles[mItemPosition]);
+                        removeCurrent();
+                    } else {
+                        mIgnore = true;
+                    }
                     mDrawerLayout.closeDrawer(mNavView);
                 }
 
@@ -349,8 +335,8 @@ public class TinkerActivity extends AppCompatActivity {
 
         // TODO - rework this for theme reset stuff?
         if (savedInstanceState == null) {
-            // on first time display view for first nav item
-            displayView(mItemPosition = getIntent().getIntExtra(EXTRA_START_FRAGMENT, 0));
+            // Use About as default start point
+            displayView(mItemPosition = getIntent().getIntExtra(EXTRA_START_FRAGMENT, 1));
         }
     }
 
@@ -362,14 +348,13 @@ public class TinkerActivity extends AppCompatActivity {
     private boolean checkPosition(int position) {
         // identify if position should skip stack clearing
         // these are the non-About frags not shown in navdrawer
-        return (position < FRAG_ARRAY_START) && (position != 0);
+        return position < FRAG_ARRAY_START;
     }
 
     private int checkSubFrag(int origposition, int newposition) {
         // see if current frag is further subfrag to force origfrag on backpress
+        // not used for much currently...
         switch(origposition) {
-            case 2: //editprop frag
-                return 1; //buildprop frag
             default:
                 return newposition;
         }
@@ -381,12 +366,10 @@ public class TinkerActivity extends AppCompatActivity {
 
     private void resetEmptyStack(int position) {
         // force about back in
-        fragmentStack.push(navMenuFrags[0]);
+        fragmentStack.push("AboutFragment");
         switch (position) {
-            case 1: // buildprop
-            case 2: // editprop
-            case 3: // fiswitch
-                fragmentStack.push("DeviceFragment");
+            case 0: // editprop
+                fragmentStack.push("BuildPropFragment");
                 break;
         }
     }
@@ -422,7 +405,7 @@ public class TinkerActivity extends AppCompatActivity {
                 // After clearing the only entry should be About/main
                 if (!mKeepStack && !mBackPress) {
                     fragmentStack.clear();
-                    fragmentStack.push(navMenuFrags[0]);
+                    fragmentStack.push("AboutFragment");
                 }
                 // add fragment name to custom stack for backstack tracking
                 // only do it if not a backpress, flagged as stack keeping, or dup of last entry
@@ -473,7 +456,7 @@ public class TinkerActivity extends AppCompatActivity {
         myHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                displayView(2);
+                displayView(0);
             }
         }, 400);
     }
@@ -519,13 +502,6 @@ public class TinkerActivity extends AppCompatActivity {
 
     public static boolean checkIntent(Context context, Intent intent) {
         return context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
-    }
-
-    public void launchcLock() {
-        Intent link = new Intent(Intent.ACTION_MAIN);
-        ComponentName cn = new ComponentName(KEY_LOCK_CLOCK_PACKAGE_NAME, KEY_LOCK_CLOCK_CLASS_NAME);
-        link.setComponent(cn);
-        startActivity(link);
     }
 
     @Override
@@ -591,20 +567,6 @@ public class TinkerActivity extends AppCompatActivity {
 
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.action_about:
-                if ( mItemPosition != 0 ) {
-                    myHandler.removeCallbacksAndMessages(null);
-                    mMenu = true;
-                    removeCurrent();
-                    // below replicates the visual delay seen when launching frags from navdrawer
-                    myHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            displayView(0);
-                        }
-                    }, 400);
-                }
-                return true;
             case R.id.action_theme:
                 ThemeDialogFragment themeDiag = new ThemeDialogFragment();
                 // pass current frag position
@@ -631,8 +593,8 @@ public class TinkerActivity extends AppCompatActivity {
         // add in bits to enable/disable menu items that are fragment specific
         if ( openingHalf ) {
             menu.setGroupVisible(R.id.action_items, true);
-            boolean isbuildprop = (mItemPosition == 1);
-            boolean iseditprop = (mItemPosition == 2);
+            boolean isbuildprop = (mItemPosition == 2);
+            boolean iseditprop = (mItemPosition == 0);
             boolean isfiswitch = (mItemPosition == 3);
             menu.findItem(R.id.action_backup).setVisible(isbuildprop);
             menu.findItem(R.id.action_restore).setVisible(isbuildprop);
@@ -642,7 +604,6 @@ public class TinkerActivity extends AppCompatActivity {
             menu.findItem(R.id.action_fabhide).setVisible(isfiswitch);
             menu.findItem(R.id.action_theme).setVisible(true);
             menu.findItem(R.id.action_launchhide).setVisible(!(isbuildprop || iseditprop || isfiswitch));
-            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isfiswitch) && mItemPosition != 0);
         } else {
             menu.setGroupVisible(R.id.action_items, false);
         }

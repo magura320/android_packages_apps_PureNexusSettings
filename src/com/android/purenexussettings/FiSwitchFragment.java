@@ -52,8 +52,15 @@ public class FiSwitchFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final boolean FiAppInstalled;
+
+        Intent checkFi = getActivity().getPackageManager().getLaunchIntentForPackage(TinkerActivity.PROJFI_PACKAGE_NAME);
+        FiAppInstalled = checkFi != null && TinkerActivity.checkIntent(getActivity(), checkFi);
 
         prefs = this.getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
+        final int bgColor = TinkerActivity.isLight(prefs)
+                ? getActivity().getResources().getColor(R.color.snackbar_bg_light, null)
+                : getActivity().getResources().getColor(R.color.snackbar_bg, null);
 
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fab);
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -76,56 +83,112 @@ public class FiSwitchFragment extends Fragment {
         link1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
-                getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34777")));
+                if (FiAppInstalled) {
+                    // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
+                    getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34777")));
+                } else {
+                    TinkerActivity.showSnack(
+                            v,
+                            getString(R.string.no_projfi_error),
+                            bgColor,
+                            true);
+                }
             }
         });
 
         link2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
-                getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34866")));
+                if (FiAppInstalled) {
+                    // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
+                    getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34866")));
+                } else {
+                    TinkerActivity.showSnack(
+                            v,
+                            getString(R.string.no_projfi_error),
+                            bgColor,
+                            true);
+                }
             }
         });
 
         link3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
-                getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://346398")));
+                if (FiAppInstalled) {
+                    // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
+                    getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://346398")));
+                } else {
+                    TinkerActivity.showSnack(
+                            v,
+                            getString(R.string.no_projfi_error),
+                            bgColor,
+                            true);
+                }
             }
         });
 
         link4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
-                getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://342886")));
+                if (FiAppInstalled) {
+                    // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
+                    getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://342886")));
+                } else {
+                    TinkerActivity.showSnack(
+                            v,
+                            getString(R.string.no_projfi_error),
+                            bgColor,
+                            true);
+                }
             }
         });
 
         link5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
-                getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34963")));
+                if (FiAppInstalled) {
+                    // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
+                    getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34963")));
+                } else {
+                    TinkerActivity.showSnack(
+                            v,
+                            getString(R.string.no_projfi_error),
+                            bgColor,
+                            true);
+                }
             }
         });
 
         link6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
-                getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://344636")));
+                if (FiAppInstalled) {
+                    // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
+                    getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://344636")));
+                } else {
+                    TinkerActivity.showSnack(
+                            v,
+                            getString(R.string.no_projfi_error),
+                            bgColor,
+                            true);
+                }
             }
         });
 
         link7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
-                getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34872")));
+                if (FiAppInstalled) {
+                    // -- Below strategy requires android.permission.CONTROL_INCALL_EXPERIENCE to not be a system permission, or app to reside in system
+                    getActivity().sendBroadcast(new Intent("android.provider.Telephony.SECRET_CODE", Uri.parse("android_secret_code://34872")));
+                } else {
+                    TinkerActivity.showSnack(
+                            v,
+                            getString(R.string.no_projfi_error),
+                            bgColor,
+                            true);
+                }
             }
         });
 

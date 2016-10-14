@@ -18,38 +18,30 @@
     <!-- Nav Drawer categories -->
     <!-- keep in the order they will appear! -->
     <string-array name="nav_drawer_cats" translatable="false">
-        <item>@string/interface_cat_title</item>
-        <item>@string/button_cat_title</item>
-        <item>@string/system_cat_title</item>
         <item>@string/util_cat_title</item>
     </string-array>
 
     <integer-array name="nav_drawer_cat_nums" translatable="false">
-        <item>4</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>2</item>
+        <item>1</item> <!-- this first part indicates the number of navdrawer frags NOT to be listed -->
+        <item>4</item>
     </integer-array>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items" translatable="false">
+        <item>@string/buildprop_frag_title2</item>
         <item>@string/about_frag_title</item>
         <item>@string/buildprop_frag_title</item>
-        <item>@string/buildprop_frag_title2</item>
         <item>@string/fiswitch_frag_title</item>
-        <item>@string/clock_frag_title</item>
         <item>@string/toolinfo_frag_title</item>
     </string-array>
 
     <!-- Nav Drawer Fragment names-->
     <!-- Keep them in order as the titles are in -->
     <string-array name="nav_drawer_fragments" translatable="false">
+        <item>EditPropFragment</item>
         <item>AboutFragment</item>
         <item>BuildPropFragment</item>
-        <item>EditPropFragment</item>
         <item>FiSwitchFragment</item>
-        <item>nullcLock</item>
         <item>DeviceFragment</item>
     </string-array>
 
@@ -57,7 +49,6 @@
     <!-- Keep them in order as the titles are in -->
     <!-- Also note that icons for items not in navdrawer won't be shown -->
     <array name="nav_drawer_icons" translatable="false">
-        <item>null</item>
         <item>null</item>
         <item>null</item>
         <item>null</item>
