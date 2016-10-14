@@ -67,8 +67,8 @@
 
     <!-- Theme option entries -->
     <string-array name="app_theme_entries" translatable="false">
-        <item>Default</item>
-        <item>Light</item>
-        <item>Black</item>
+        <item>@string/default_theme</item>
+        <item>@string/light_theme</item>
+        <item>@string/dark_theme</item>
     </string-array>
 </resources>

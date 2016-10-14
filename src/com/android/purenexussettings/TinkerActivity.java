@@ -388,14 +388,6 @@ public class TinkerActivity extends AppCompatActivity {
             case 3: // fiswitch
                 fragmentStack.push("DeviceFragment");
                 break;
-            case 4: // clock
-            case 5: // net traffic
-                fragmentStack.push("StatusBarFragment");
-                break;
-            case 6:
-            case 7:
-                fragmentStack.push("DisplayFragment");
-                break;
         }
     }
 
@@ -642,12 +634,6 @@ public class TinkerActivity extends AppCompatActivity {
             boolean isbuildprop = (mItemPosition == 1);
             boolean iseditprop = (mItemPosition == 2);
             boolean isfiswitch = (mItemPosition == 3);
-            boolean isNotiLight = (mItemPosition == 6);
-            boolean isBattLight = (mItemPosition == 7);
-            if (!isNotiLight) {
-                menu.findItem(R.id.action_add).setVisible(false);
-            }
-            menu.findItem(R.id.action_reset).setVisible(isBattLight);
             menu.findItem(R.id.action_backup).setVisible(isbuildprop);
             menu.findItem(R.id.action_restore).setVisible(isbuildprop);
             menu.findItem(R.id.action_search).setVisible(isbuildprop);
@@ -656,8 +642,7 @@ public class TinkerActivity extends AppCompatActivity {
             menu.findItem(R.id.action_fabhide).setVisible(isfiswitch);
             menu.findItem(R.id.action_theme).setVisible(true);
             menu.findItem(R.id.action_launchhide).setVisible(!(isbuildprop || iseditprop || isfiswitch));
-            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isfiswitch || isNotiLight || isBattLight)
-                    && mItemPosition != 0);
+            menu.findItem(R.id.action_about).setVisible(!(isbuildprop || iseditprop || isfiswitch) && mItemPosition != 0);
         } else {
             menu.setGroupVisible(R.id.action_items, false);
         }

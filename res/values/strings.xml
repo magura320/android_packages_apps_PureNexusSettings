@@ -18,6 +18,11 @@
   <!-- App Name -->
     <string name="app_name">PureNexus settings</string>
 
+  <!-- App Theme -->
+    <string name="default_theme">Default</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+
   <!-- About Frag strings -->
     <string name="about_frag_title">About</string>
     <string name="pushbullet_data" translatable="false">https://www.pushbullet.com/channel?tag=purenexus</string>
